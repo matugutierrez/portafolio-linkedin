@@ -49,7 +49,7 @@ export const Route = createFileRoute("/api/chat")({
           console.log("[chat] Calling Gemini API...");
 
           const res = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:streamGenerateContent?alt=sse&key=${key}`,
+            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:streamGenerateContent?alt=sse&key=${key}`,
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
