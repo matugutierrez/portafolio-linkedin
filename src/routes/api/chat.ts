@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { streamText } from "ai";
-import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 export const Route = createFileRoute("/api/chat")({
   server: {
@@ -9,8 +9,8 @@ export const Route = createFileRoute("/api/chat")({
         const body = (await request.json()) as { messages: { role: "user" | "assistant"; content: string }[]; lang?: "es" | "en" };
         const lang = body.lang ?? "es";
 
-        const key = process.env.LOVABLE_API_KEY;
-        if (!key) return new Response("Missing LOVABLE_API_KEY", { status: 500 });
+        const key = process.env.GOOGLE_GEMINI_API_KEY;
+        if (!key) return new Response("Missing GOOGLE_GEMINI_API_KEY", { status: 500 });
 
         // Load portfolio context
         const { createClient } = await import("@supabase/supabase-js");
@@ -32,9 +32,9 @@ export const Route = createFileRoute("/api/chat")({
           ? `Eres un asistente IA del portfolio de ${profile?.name ?? "Matías Gutiérrez"}. Responde SIEMPRE en español, en primera persona como si fueras Matías. Sé conciso, amable y profesional. Usa SOLO la siguiente información:\n\nPERFIL:\n${JSON.stringify(profile)}\n\nPROYECTOS:\n${JSON.stringify(projects)}\n\nEXPERIENCIA:\n${JSON.stringify(exp)}\n\nHABILIDADES:\n${JSON.stringify(skills)}\n\nSi te preguntan algo que no está en estos datos, di amablemente que no tienes esa información y sugiere contactar por el formulario.${formatRules}`
           : `You are an AI assistant for ${profile?.name ?? "Matías Gutiérrez"}'s portfolio. Always answer in English, in first person as if you were Matías. Be concise, friendly and professional. Use ONLY the following information:\n\nPROFILE:\n${JSON.stringify(profile)}\n\nPROJECTS:\n${JSON.stringify(projects)}\n\nEXPERIENCE:\n${JSON.stringify(exp)}\n\nSKILLS:\n${JSON.stringify(skills)}\n\nIf asked about something not in this data, kindly say you don't have that info and suggest using the contact form.${formatRules}`;
 
-        const gateway = createLovableAiGatewayProvider(key);
+        const google = createGoogleGenerativeAI({ apiKey: key });
         const result = streamText({
-          model: gateway("google/gemini-3-flash-preview"),
+          model: google("gemini-2.0-flash"),
           system,
           messages: body.messages.map((m) => ({ role: m.role, content: m.content })),
         });
