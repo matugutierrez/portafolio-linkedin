@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Groq from "groq-sdk";
 
 export const Route = createFileRoute("/api/chat")({
   server: {
@@ -8,11 +9,7 @@ export const Route = createFileRoute("/api/chat")({
           const body = (await request.json()) as { messages: { role: "user" | "assistant"; content: string }[]; lang?: "es" | "en" };
           const lang = body.lang ?? "es";
 
-          const key = process.env.GOOGLE_GEMINI_API_KEY;
-          if (!key) {
-            console.error("[chat] Missing GOOGLE_GEMINI_API_KEY");
-            return new Response("Missing API key", { status: 500 });
-          }
+          const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
           // Load portfolio context
           const { createClient } = await import("@supabase/supabase-js");
@@ -34,67 +31,34 @@ export const Route = createFileRoute("/api/chat")({
             ? `Eres un asistente IA del portfolio de ${profile?.name ?? "Matías Gutiérrez"}. Responde SIEMPRE en español, en primera persona como si fueras Matías. Sé conciso, amable y profesional. Usa SOLO la siguiente información:\n\nPERFIL:\n${JSON.stringify(profile)}\n\nPROYECTOS:\n${JSON.stringify(projects)}\n\nEXPERIENCIA:\n${JSON.stringify(exp)}\n\nHABILIDADES:\n${JSON.stringify(skills)}\n\nSi te preguntan algo que no está en estos datos, di amablemente que no tienes esa información y sugiere contactar por el formulario.${formatRules}`
             : `You are an AI assistant for ${profile?.name ?? "Matías Gutiérrez"}'s portfolio. Always answer in English, in first person as if you were Matías. Be concise, friendly and professional. Use ONLY the following information:\n\nPROFILE:\n${JSON.stringify(profile)}\n\nPROJECTS:\n${JSON.stringify(projects)}\n\nEXPERIENCE:\n${JSON.stringify(exp)}\n\nSKILLS:\n${JSON.stringify(skills)}\n\nIf asked about something not in this data, kindly say you don't have that info and suggest using the contact form.${formatRules}`;
 
-          // Convert messages to Google format
-          const contents = body.messages.map((m) => ({
-            role: m.role === "assistant" ? "model" : "user",
-            parts: [{ text: m.content }],
-          }));
+          const messages = [
+            { role: "system" as const, content: system },
+            ...body.messages.map((m) => ({ role: m.role === "assistant" ? "assistant" as const : "user" as const, content: m.content })),
+          ];
 
-          const googleBody = {
-            contents,
-            systemInstruction: { parts: [{ text: system }] },
-            generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
-          };
+          const stream = await groq.chat.completions.create({
+            model: "llama3-8b-8192",
+            messages,
+            stream: true,
+          });
 
-          console.log("[chat] Calling Gemini API...");
-
-          const res = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:streamGenerateContent?alt=sse&key=${key}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(googleBody),
-            },
-          );
-
-          if (!res.ok) {
-            const errText = await res.text();
-            console.error("[chat] Gemini API error:", res.status, errText);
-            return new Response(`Gemini API error: ${res.status}`, { status: 500 });
-          }
-
-          // Stream the SSE response back to the client as plain text
           const encoder = new TextEncoder();
-          const stream = new ReadableStream({
+          const readable = new ReadableStream({
             async start(controller) {
-              const reader = res.body!.getReader();
-              const decoder = new TextDecoder();
-              let buffer = "";
-              while (true) {
-                const { done, value } = await reader.read();
-                if (done) break;
-                buffer += decoder.decode(value, { stream: true });
-                const lines = buffer.split("\n");
-                buffer = lines.pop() || "";
-                for (const line of lines) {
-                  if (line.startsWith("data: ")) {
-                    const data = line.slice(6).trim();
-                    if (data === "[DONE]") continue;
-                    try {
-                      const parsed = JSON.parse(data);
-                      const text = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
-                      if (text) controller.enqueue(encoder.encode(text));
-                    } catch {
-                      // skip malformed lines
-                    }
-                  }
+              try {
+                for await (const chunk of stream) {
+                  const text = chunk.choices?.[0]?.delta?.content || "";
+                  if (text) controller.enqueue(encoder.encode(text));
                 }
+              } catch (err) {
+                console.error("[chat] Groq stream error:", err);
+              } finally {
+                controller.close();
               }
-              controller.close();
             },
           });
 
-          return new Response(stream, {
+          return new Response(readable, {
             headers: { "Content-Type": "text/plain; charset=utf-8" },
           });
         } catch (err) {
