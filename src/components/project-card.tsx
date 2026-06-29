@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Maximize2 } from "lucide-react";
+import { ExternalLink, Github, Maximize2, BookOpen } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,9 @@ interface Project {
   cover_url: string | null;
   demo_url: string | null;
   repo_url: string | null;
+  readme_es?: string | null;
+  readme_en?: string | null;
+  has_readme?: boolean | null;
   stack: unknown;
 }
 
@@ -41,6 +45,7 @@ export function ProjectCard({ project, index, variant = "default" }: ProjectCard
   const description = lang === "es" ? project.description_es : project.description_en;
   const longDescription = lang === "es" ? project.long_description_es : project.long_description_en;
   const stack = Array.isArray(project.stack) ? (project.stack as string[]) : [];
+  const hasReadme = Boolean(project.has_readme);
 
   const initials = project.title
     .split(" ")
@@ -121,6 +126,15 @@ export function ProjectCard({ project, index, variant = "default" }: ProjectCard
                   >
                     <Github className="size-3" /> {t.sections.repo}
                   </a>
+                )}
+                {hasReadme && (
+                  <Link
+                    to="/proyectos/$slug/readme"
+                    params={{ slug: project.slug }}
+                    className="flex-1 inline-flex items-center justify-center gap-1 text-xs px-3 py-2 rounded border border-border hover:bg-accent"
+                  >
+                    <BookOpen className="size-3" /> README
+                  </Link>
                 )}
               </div>
             </div>

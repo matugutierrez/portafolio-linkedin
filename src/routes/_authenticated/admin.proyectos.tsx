@@ -42,6 +42,9 @@ function Page() {
           },
           { name: "demo_url", label: "URL Demo" },
           { name: "repo_url", label: "URL Repo GitHub (opcional — si está vacío no aparece el botón)" },
+          { name: "has_readme", label: "Mostrar botón README (marcá la casilla para crear la página dedicada)", type: "boolean" },
+          { name: "readme_es", label: "Contenido README (ES)", type: "textarea" },
+          { name: "readme_en", label: "README content (EN)", type: "textarea" },
           { name: "featured", label: "Destacado", type: "boolean" },
           { name: "display_order", label: "Orden", type: "number" },
         ]}

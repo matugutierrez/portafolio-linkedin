@@ -297,9 +297,12 @@ export type Database = {
           display_order: number
           featured: boolean
           gallery: Json
+          has_readme: boolean
           id: string
           long_description_en: string | null
           long_description_es: string | null
+          readme_en: string | null
+          readme_es: string | null
           repo_url: string | null
           slug: string
           stack: Json
@@ -316,9 +319,12 @@ export type Database = {
           display_order?: number
           featured?: boolean
           gallery?: Json
+          has_readme?: boolean
           id?: string
           long_description_en?: string | null
           long_description_es?: string | null
+          readme_en?: string | null
+          readme_es?: string | null
           repo_url?: string | null
           slug: string
           stack?: Json
@@ -335,9 +341,12 @@ export type Database = {
           display_order?: number
           featured?: boolean
           gallery?: Json
+          has_readme?: boolean
           id?: string
           long_description_en?: string | null
           long_description_es?: string | null
+          readme_en?: string | null
+          readme_es?: string | null
           repo_url?: string | null
           slug?: string
           stack?: Json
