@@ -99,7 +99,7 @@ export function AdminCrud({
   });
 
   const blank = () => Object.fromEntries(fields.map((f) => [f.name, f.type === "boolean" ? false : f.type === "number" ? 0 : f.type === "json" ? [] : ""])) as any;
-  // multi fields default to []
+  
 
   const save = useMutation({
     mutationFn: async (row: any) => {
@@ -110,15 +110,14 @@ export function AdminCrud({
           if (f.type === "json" && typeof p[f.name] === "string") {
             try { p[f.name] = JSON.parse(p[f.name]); } catch { p[f.name] = []; }
           }
-          // Don't coerce the multi-insert field — at this point it's a single
-          // string value (one row per selected item)
+          
           if (f.type === "multi" && f.name !== multiInsertField && !Array.isArray(p[f.name])) {
             p[f.name] = [];
           }
         });
         return p;
       };
-      // Multi-insert mode (creating only): one row per selected value
+      
       if (multiInsertField && !row.id && Array.isArray(row[multiInsertField]) && row[multiInsertField].length > 0) {
         const values: string[] = row[multiInsertField];
         const rows = values.map((v) => {
@@ -132,7 +131,7 @@ export function AdminCrud({
         return;
       }
       const payload = normalize(row);
-      // Editing existing: collapse multiInsertField array back to single value
+      
       if (multiInsertField && row.id && Array.isArray(payload[multiInsertField])) {
         payload[multiInsertField] = payload[multiInsertField][0] ?? "";
       }

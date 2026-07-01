@@ -16,11 +16,11 @@ function openWhatsApp(event: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 function renderRich(text: string): React.ReactNode[] {
-  // Strip markdown emphasis (** __ *) around our tokens and in general
+  
   let clean = text.replace(/\*\*(.+?)\*\*/g, "$1").replace(/__(.+?)__/g, "$1").replace(/(?<!\*)\*(?!\*)(.+?)(?<!\*)\*(?!\*)/g, "$1");
 
   const parts: React.ReactNode[] = [];
-  // Match email, phone variants, or http(s) urls
+  
   const phoneRe = /\+?54\s?9?\s?11\s?\d{4}[-\s]?\d{4}/g;
   const emailRe = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
   const urlRe = /https?:\/\/[^\s)]+/g;
@@ -50,7 +50,7 @@ function renderRich(text: string): React.ReactNode[] {
     });
   }
   while ((m = urlRe.exec(clean))) {
-    // skip if overlaps existing hit
+    
     if (hits.some((h) => m!.index < h.end && m!.index + m![0].length > h.start)) continue;
     hits.push({ start: m.index, end: m.index + m[0].length, node: <a key={`u${m.index}`} href={m[0]} target="_blank" rel="noreferrer" className="underline text-green-400 hover:text-green-300">{m[0]}</a> });
   }

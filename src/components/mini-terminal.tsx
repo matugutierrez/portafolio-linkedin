@@ -30,7 +30,7 @@ export function MiniTerminal() {
 
   useEffect(() => {
     setLines(banner.map((t) => ({ kind: "sys", text: t })));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, [lang]);
 
   useEffect(() => {

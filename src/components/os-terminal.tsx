@@ -29,7 +29,7 @@ export function OsTerminal({ years, projects, tech, techList, commitment, labels
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Initial banner + stats — Windows CMD or macOS Terminal
+  
   const initial = useMemo<Line[]>(() => {
     const techCount = techList.length > 0 ? techList.length : tech;
     const rows: Array<{ hex: string; label: string; value: string; isTech?: boolean }> = [
@@ -359,7 +359,7 @@ function ClassicWinBtn({ children }: { children: React.ReactNode }) {
 }
 
 function ClassicWinFlag({ className = "" }: { className?: string }) {
-  // Classic waving 4-color Windows flag (XP/2000 era)
+  
   return (
     <svg viewBox="0 0 24 24" className={className} aria-hidden>
       <g transform="skewY(-8)">

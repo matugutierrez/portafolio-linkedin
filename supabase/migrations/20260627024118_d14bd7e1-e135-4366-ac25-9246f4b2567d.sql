@@ -1,5 +1,5 @@
 
--- Allow public (anon) writes on admin-managed tables since admin uses local bypass (no Supabase auth)
+
 CREATE POLICY "Public manage profile" ON public.profiles FOR UPDATE TO anon, authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Public insert profile" ON public.profiles FOR INSERT TO anon, authenticated WITH CHECK (true);
 CREATE POLICY "Public delete profile" ON public.profiles FOR DELETE TO anon, authenticated USING (true);
@@ -23,5 +23,5 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON public.technologies TO anon;
 GRANT SELECT, INSERT, UPDATE, DELETE ON public.contact_messages TO anon;
 GRANT SELECT ON public.page_views TO anon;
 
--- Fix referrer column name mismatch (code uses "referrer", table has "referer")
+
 ALTER TABLE public.page_views RENAME COLUMN referer TO referrer;

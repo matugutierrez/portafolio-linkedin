@@ -1,5 +1,5 @@
 
--- Roles
+
 CREATE TYPE public.app_role AS ENUM ('admin', 'user');
 
 CREATE TABLE public.user_roles (
@@ -24,12 +24,12 @@ CREATE POLICY "Admins manage roles" ON public.user_roles
   FOR ALL TO authenticated USING (public.has_role(auth.uid(), 'admin'))
   WITH CHECK (public.has_role(auth.uid(), 'admin'));
 
--- updated_at helper
+
 CREATE OR REPLACE FUNCTION public.set_updated_at()
 RETURNS TRIGGER LANGUAGE plpgsql SET search_path = public AS $$
 BEGIN NEW.updated_at = now(); RETURN NEW; END $$;
 
--- PROFILES (singleton-style: one main profile, but allow many for safety)
+
 CREATE TABLE public.profiles (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL DEFAULT 'Matías Gutiérrez',
@@ -60,7 +60,7 @@ CREATE POLICY "Admin manage profile" ON public.profiles FOR ALL TO authenticated
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER profiles_set_updated_at BEFORE UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- PROJECTS
+
 CREATE TABLE public.projects (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug TEXT NOT NULL UNIQUE,
@@ -89,7 +89,7 @@ CREATE POLICY "Admin manage projects" ON public.projects FOR ALL TO authenticate
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER projects_set_updated_at BEFORE UPDATE ON public.projects FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- EXPERIENCES
+
 CREATE TABLE public.experiences (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   company TEXT NOT NULL,
@@ -114,7 +114,7 @@ CREATE POLICY "Admin manage experiences" ON public.experiences FOR ALL TO authen
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER experiences_set_updated_at BEFORE UPDATE ON public.experiences FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- EDUCATION
+
 CREATE TABLE public.education (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   institution TEXT NOT NULL,
@@ -138,7 +138,7 @@ CREATE POLICY "Admin manage education" ON public.education FOR ALL TO authentica
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER education_set_updated_at BEFORE UPDATE ON public.education FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- SKILLS
+
 CREATE TABLE public.skills (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -158,7 +158,7 @@ CREATE POLICY "Admin manage skills" ON public.skills FOR ALL TO authenticated
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER skills_set_updated_at BEFORE UPDATE ON public.skills FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- TECHNOLOGIES
+
 CREATE TABLE public.technologies (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -177,7 +177,7 @@ CREATE POLICY "Admin manage tech" ON public.technologies FOR ALL TO authenticate
   USING (public.has_role(auth.uid(), 'admin')) WITH CHECK (public.has_role(auth.uid(), 'admin'));
 CREATE TRIGGER tech_set_updated_at BEFORE UPDATE ON public.technologies FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
--- CONTACT MESSAGES
+
 CREATE TABLE public.contact_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
@@ -197,7 +197,7 @@ CREATE POLICY "Admin reads messages" ON public.contact_messages FOR SELECT TO au
 CREATE POLICY "Admin updates messages" ON public.contact_messages FOR UPDATE TO authenticated USING (public.has_role(auth.uid(), 'admin'));
 CREATE POLICY "Admin deletes messages" ON public.contact_messages FOR DELETE TO authenticated USING (public.has_role(auth.uid(), 'admin'));
 
--- PAGE VIEWS
+
 CREATE TABLE public.page_views (
   id BIGSERIAL PRIMARY KEY,
   path TEXT NOT NULL,
@@ -212,7 +212,7 @@ ALTER TABLE public.page_views ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone logs view" ON public.page_views FOR INSERT TO anon, authenticated WITH CHECK (true);
 CREATE POLICY "Admin reads views" ON public.page_views FOR SELECT TO authenticated USING (public.has_role(auth.uid(), 'admin'));
 
--- CHAT SESSIONS & MESSAGES
+
 CREATE TABLE public.chat_sessions (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   visitor_id TEXT NOT NULL,
@@ -237,7 +237,7 @@ ALTER TABLE public.chat_messages ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Anyone insert messages" ON public.chat_messages FOR INSERT TO anon, authenticated WITH CHECK (true);
 CREATE POLICY "Read any messages" ON public.chat_messages FOR SELECT TO anon, authenticated USING (true);
 
--- Auto-promote the FIRST signed-up user to admin
+
 CREATE OR REPLACE FUNCTION public.handle_new_user_role()
 RETURNS TRIGGER LANGUAGE plpgsql SECURITY DEFINER SET search_path = public AS $$
 BEGIN
@@ -253,15 +253,14 @@ CREATE TRIGGER on_auth_user_created
 AFTER INSERT ON auth.users
 FOR EACH ROW EXECUTE FUNCTION public.handle_new_user_role();
 
--- Seed singleton profile
-INSERT INTO public.profiles (name, title_es, title_en, bio_es, bio_en, email, location, github_url, linkedin_url, available, years_experience, projects_count, technologies_count)
+
 VALUES (
   'Matías Gutiérrez',
   'Desarrollador Full Stack',
   'Full Stack Developer',
   'Especializado en crear aplicaciones web modernas, escalables y de alto rendimiento. Me apasiona transformar ideas en soluciones digitales excepcionales.',
   'Specialized in building modern, scalable and high-performance web applications. Passionate about turning ideas into outstanding digital solutions.',
-  'matias@example.com',
+  'matugutierrez7@gmail.com',
   'Buenos Aires, Argentina',
   'https://github.com',
   'https://linkedin.com',
