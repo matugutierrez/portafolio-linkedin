@@ -7,8 +7,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
-import cvEs from "@/assets/cv-es.pdf.asset.json";
-import cvEn from "@/assets/cv-en.pdf.asset.json";
 
 type Variant = "sidebar" | "hero" | "mobile";
 
@@ -37,12 +35,12 @@ export function CvDownload({ variant = "sidebar" }: { variant?: Variant }) {
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-48">
         <DropdownMenuItem asChild>
-          <a href={cvEs.url} download="Matias_Gutierrez_CV_ES.pdf">
+          <a href="/cv/Matias_Gutierrez_FullStack_JR_CV.pdf" download="Matias_Gutierrez_FullStack_JR_CV.pdf">
             CV Español
           </a>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <a href={cvEn.url} download="Matias_Gutierrez_CV_EN.pdf">
+          <a href="/cv/Matias_Gutierrez_FullStack_JR_CV_ENG.pdf" download="Matias_Gutierrez_FullStack_JR_CV_ENG.pdf">
             CV English
           </a>
         </DropdownMenuItem>
