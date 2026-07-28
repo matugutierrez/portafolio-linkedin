@@ -33,6 +33,7 @@ function Page() {
           { name: "long_description_es", label: "Descripción larga (ES)", type: "textarea" },
           { name: "long_description_en", label: "Long description (EN)", type: "textarea" },
           { name: "cover_url", label: "Imagen de portada", type: "image" },
+          { name: "video_url", label: "Animación / Video MP4 (se sube a Supabase Storage y se muestra en el apartado Proyectos)", type: "video" },
           {
             name: "stack",
             label: "Tecnologías (elegí las que usa este proyecto)",

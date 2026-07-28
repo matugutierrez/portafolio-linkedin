@@ -56,13 +56,13 @@ function CategoryChips({
 export type Field = {
   name: string;
   label: string;
-  type?: "text" | "textarea" | "number" | "boolean" | "date" | "select" | "image" | "json" | "multi" | "tech";
+  type?: "text" | "textarea" | "number" | "boolean" | "date" | "select" | "image" | "video" | "json" | "multi" | "tech";
   options?: { value: string; label: string; disabled?: boolean; disabledReason?: string }[];
   iconUrl?: (value: string) => string | null;
   required?: boolean;
 };
 
-import { ImageUpload } from "./image-upload";
+import { ImageUpload, VideoUpload } from "./image-upload";
 
 function AdminIcon({ src, label, size = "sm" }: { src: string; label?: string; size?: "xs" | "sm" }) {
   return <TechLogo name={label ?? "Tecnología"} src={src} size={size === "xs" ? 14 : 16} />;
@@ -247,6 +247,8 @@ function FieldInput({ field, value, onChange }: { field: Field; value: any; onCh
         <input type="date" value={value ?? ""} onChange={(e) => update(e.target.value || null)} className={cls} required={field.required} />
       ) : field.type === "image" ? (
         <ImageUpload value={value ?? null} onChange={update} label="" />
+      ) : field.type === "video" ? (
+        <VideoUpload value={value ?? null} onChange={update} label="" />
       ) : field.type === "json" ? (
         <textarea rows={3} value={Array.isArray(value) ? JSON.stringify(value) : value ?? "[]"} onChange={(e) => update(e.target.value)} className={cls + " font-mono text-xs"} placeholder='["React","Node"]' />
       ) : field.type === "multi" ? (
@@ -277,10 +279,11 @@ function MultiPicker({
     const c = categoryOf(o.value);
     counts[c] = (counts[c] ?? 0) + 1;
   });
-  const filtered = opts.filter((o) => {
+  const uniqueOpts = opts.filter((o, idx) => opts.findIndex((x) => x.value === o.value) === idx);
+  const filtered = uniqueOpts.filter((o) => {
     const matchQ = o.label.toLowerCase().includes(q.toLowerCase());
     const matchC = cat === "all" || categoryOf(o.value) === cat;
-    return matchQ && matchC;
+    return matchQ && matchC && !value.includes(o.value);
   });
   const toggle = (v: string) => {
     if (value.includes(v)) onChange(value.filter((x) => x !== v));

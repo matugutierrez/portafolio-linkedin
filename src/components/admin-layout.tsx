@@ -1,13 +1,29 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
-import { FolderGit2, Briefcase, GraduationCap, Wrench, Code2, Mail, BarChart3, UserCog, LogOut, ArrowLeft, Menu } from "lucide-react";
+import {
+  FolderGit2, Briefcase, GraduationCap, Wrench, Code2, Mail,
+  BarChart3, UserCog, LogOut, ArrowLeft, Menu, Zap,
+} from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+
+const NAV_ITEMS = [
+  { to: "/admin/proyectos",   label: "Proyectos",    icon: FolderGit2 },
+  { to: "/admin/experiencia", label: "Experiencia",   icon: Briefcase },
+  { to: "/admin/educacion",   label: "Educación",     icon: GraduationCap },
+  { to: "/admin/habilidades", label: "Habilidades",   icon: Wrench },
+  { to: "/admin/tecnologias", label: "Tecnologías",   icon: Code2 },
+  { to: "/admin/mensajes",    label: "Mensajes",      icon: Mail },
+  { to: "/admin/analiticas", label: "Analíticas",    icon: BarChart3 },
+  { to: "/admin/perfil",      label: "Perfil",        icon: UserCog },
+  { to: "/admin/menu",        label: "Menú del sitio", icon: Menu },
+];
 
 export function AdminLayout({ children, title }: { children: ReactNode; title: string }) {
   const loc = useLocation();
   const navigate = useNavigate();
   const qc = useQueryClient();
+  const [open, setOpen] = useState(false);
 
   const signOut = async () => {
     await qc.cancelQueries();
@@ -16,28 +32,26 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
     navigate({ to: "/", replace: true });
   };
 
-  const items = [
-    { to: "/admin/proyectos", label: "Proyectos", icon: FolderGit2 },
-    { to: "/admin/experiencia", label: "Experiencia", icon: Briefcase },
-    { to: "/admin/educacion", label: "Educación", icon: GraduationCap },
-    { to: "/admin/habilidades", label: "Habilidades", icon: Wrench },
-    { to: "/admin/tecnologias", label: "Tecnologías", icon: Code2 },
-    { to: "/admin/mensajes", label: "Mensajes", icon: Mail },
-    { to: "/admin/analiticas", label: "Analíticas", icon: BarChart3 },
-    { to: "/admin/perfil", label: "Perfil", icon: UserCog },
-    { to: "/admin/menu", label: "Menú del sitio", icon: Menu },
-  ];
-
-  const [open, setOpen] = useState(false);
-
   const NavList = ({ onClick }: { onClick?: () => void }) => (
-    <nav className="flex-1 space-y-1">
-      {items.map((it) => {
+    <nav className="flex-1 space-y-0.5">
+      {NAV_ITEMS.map((it) => {
         const active = loc.pathname.startsWith(it.to);
         const Icon = it.icon;
         return (
-          <Link key={it.to} to={it.to} onClick={onClick} className={`flex items-center gap-2 px-3 py-2 text-sm rounded-lg ${active ? "bg-white/5 text-foreground border border-border" : "text-muted-foreground hover:text-foreground hover:bg-sidebar-accent"}`}>
-            <Icon className="size-4" /> {it.label}
+          <Link
+            key={it.to}
+            to={it.to}
+            onClick={onClick}
+            className={[
+              "flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200",
+              active
+                ? "bg-[oklch(0.88_0.2_128)/0.12] text-[oklch(0.88_0.2_128)] border border-[oklch(0.88_0.2_128)/0.2]"
+                : "text-white/50 hover:text-white/90 hover:bg-white/5",
+            ].join(" ")}
+          >
+            <Icon className="size-4 shrink-0" />
+            <span>{it.label}</span>
+            {active && <span className="ml-auto size-1.5 rounded-full bg-[oklch(0.88_0.2_128)]" />}
           </Link>
         );
       })}
@@ -45,48 +59,101 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
   );
 
   const NavFooter = ({ onClick }: { onClick?: () => void }) => (
-    <div className="border-t border-border pt-4 space-y-1">
-      <Link to="/" onClick={onClick} className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-muted-foreground hover:text-foreground">
-        <ArrowLeft className="size-4" /> Volver al sitio
+    <div className="pt-3 mt-3 border-t border-white/8 space-y-0.5">
+      <Link
+        to="/"
+        onClick={onClick}
+        className="flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl text-white/40 hover:text-white/80 hover:bg-white/5 transition-all duration-200"
+      >
+        <ArrowLeft className="size-4" />
+        Volver al sitio
       </Link>
-      <button onClick={() => { onClick?.(); signOut(); }} className="flex items-center gap-2 px-3 py-2 text-sm rounded-lg text-muted-foreground hover:text-foreground w-full">
-        <LogOut className="size-4" /> Cerrar sesión
+      <button
+        onClick={() => { onClick?.(); signOut(); }}
+        className="flex w-full items-center gap-3 px-3 py-2.5 text-sm rounded-xl text-white/40 hover:text-red-400 hover:bg-red-500/8 transition-all duration-200"
+      >
+        <LogOut className="size-4" />
+        Cerrar sesión
       </button>
     </div>
   );
 
   return (
-    <div className="min-h-screen flex bg-background text-foreground">
-      <aside className="hidden md:flex flex-col w-60 shrink-0 h-screen sticky top-0 border-r border-border bg-sidebar p-4">
-        <div className="flex items-center gap-2 mb-6 px-2">
-          <div className="size-9 rounded-lg bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white font-bold text-sm">MG</div>
-          <div>
-            <div className="text-sm font-semibold">Admin</div>
-            <div className="text-[10px] text-muted-foreground">Portfolio CMS</div>
+    <div
+      className="min-h-screen flex text-white"
+      style={{ background: "oklch(0.13 0.002 260)", fontFamily: "'Space Grotesk', sans-serif" }}
+    >
+      {/* ── Sidebar ── */}
+      <aside className="hidden md:flex flex-col w-64 shrink-0 h-screen sticky top-0 p-4" style={{ borderRight: "1px solid rgba(255,255,255,0.07)" }}>
+        {/* Brand */}
+        <div className="flex items-center gap-3 px-1 mb-6">
+          <div
+            className="size-9 rounded-xl flex items-center justify-center font-black text-sm"
+            style={{ background: "oklch(0.88 0.2 128)", color: "oklch(0.13 0.002 260)" }}
+          >
+            MG
           </div>
+          <div>
+            <div className="text-sm font-bold tracking-tight">Portfolio CMS</div>
+            <div className="text-[10px] text-white/30 font-mono uppercase tracking-widest">Admin</div>
+          </div>
+          <Zap className="ml-auto size-3.5" style={{ color: "oklch(0.88 0.2 128)" }} />
         </div>
+
         <NavList />
         <NavFooter />
       </aside>
+
+      {/* ── Main ── */}
       <div className="flex-1 min-w-0 flex flex-col">
-        <header className="border-b border-border bg-card/50 backdrop-blur px-4 md:px-6 py-4 sticky top-0 z-20 flex items-center gap-3">
+        {/* Header */}
+        <header
+          className="sticky top-0 z-20 px-4 md:px-8 py-4 flex items-center gap-4 backdrop-blur-xl"
+          style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", background: "oklch(0.13 0.002 260 / 0.85)" }}
+        >
+          {/* Mobile hamburger */}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <button type="button" aria-label="Menu" className="md:hidden p-1.5 rounded border border-border hover:bg-sidebar-accent">
+              <button
+                type="button"
+                aria-label="Menú"
+                className="md:hidden p-2 rounded-xl transition-colors hover:bg-white/8"
+                style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+              >
                 <Menu className="size-5" />
               </button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-72 bg-sidebar text-sidebar-foreground p-4 flex flex-col">
-              <SheetTitle className="text-left">Admin</SheetTitle>
-              <div className="mt-4 flex-1 flex flex-col">
+            <SheetContent
+              side="left"
+              className="w-72 p-4 flex flex-col text-white"
+              style={{ background: "oklch(0.13 0.002 260)", border: "none", borderRight: "1px solid rgba(255,255,255,0.07)" }}
+            >
+              <SheetTitle className="text-left text-white font-bold mb-4">Admin</SheetTitle>
+              <div className="flex-1 flex flex-col">
                 <NavList onClick={() => setOpen(false)} />
                 <NavFooter onClick={() => setOpen(false)} />
               </div>
             </SheetContent>
           </Sheet>
-          <h1 className="text-lg md:text-xl font-bold">{title}</h1>
+
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2">
+            <span className="text-white/30 text-sm font-mono">Admin</span>
+            <span className="text-white/20 text-xs">/</span>
+            <h1 className="text-base font-bold tracking-tight">{title}</h1>
+          </div>
+
+          {/* Live badge */}
+          <div
+            className="ml-auto hidden sm:flex items-center gap-2 text-xs px-3 py-1.5 rounded-full"
+            style={{ background: "oklch(0.88 0.2 128 / 0.12)", border: "1px solid oklch(0.88 0.2 128 / 0.25)", color: "oklch(0.88 0.2 128)" }}
+          >
+            <span className="size-1.5 rounded-full animate-pulse" style={{ background: "oklch(0.88 0.2 128)" }} />
+            Live
+          </div>
         </header>
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+
+        <main className="flex-1 p-4 md:p-8">{children}</main>
       </div>
     </div>
   );

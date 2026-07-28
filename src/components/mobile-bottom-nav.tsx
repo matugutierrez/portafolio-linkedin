@@ -14,11 +14,17 @@ export function MobileBottomNav() {
   ];
   const items = all.filter((it) => !hidden.includes(it.to));
   return (
-    <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 border-t border-border bg-sidebar/95 backdrop-blur flex justify-around py-2">
+    <div className="lg:hidden fixed bottom-4 inset-x-4 z-40 rounded-full border border-border bg-background/90 backdrop-blur-md shadow-[0_8px_32px_rgba(0,0,0,0.35)] flex justify-around py-1.5">
       {items.map(({ to, icon: Icon }) => {
         const active = loc.pathname === to;
         return (
-          <Link key={to} to={to} className={`p-3 rounded-lg ${active ? "text-foreground" : "text-muted-foreground"}`}>
+          <Link
+            key={to}
+            to={to}
+            className={`p-3 rounded-full transition ${
+              active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+            }`}
+          >
             <Icon className="size-5" />
           </Link>
         );

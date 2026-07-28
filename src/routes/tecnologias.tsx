@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/site-layout";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
@@ -48,59 +49,65 @@ function Tecnologias() {
 
   return (
     <SiteLayout>
-      <div className="flex items-center gap-2 text-xs font-mono text-green-400/80 uppercase tracking-widest">
-        <span className="size-1.5 rounded-full bg-green-300 animate-pulse" /> {t.nav.tech}
-      </div>
-      <h1 className="text-4xl sm:text-5xl font-bold mt-2">
-        {lang === "es" ? "Tecnologías" : "Technologies"}
-      </h1>
-      <p className="text-muted-foreground mt-2 text-sm">
-        {lang === "es"
-          ? `${list.length} tecnologías`
-          : `${list.length} technologies`}
-      </p>
+      <div className="px-4 sm:px-8 max-w-7xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="font-mono text-xs uppercase tracking-widest text-primary">{t.nav.tech}</div>
+          <h1 className="mt-3 font-display font-bold uppercase tracking-tight leading-[0.95] text-[clamp(2.5rem,7vw,5.5rem)]">
+            {lang === "es" ? "Tecnologías" : "Technologies"}
+          </h1>
+          <p className="mt-2 font-mono text-sm text-muted-foreground">
+            ({list.length} {lang === "es" ? "tecnologías" : "technologies"})
+          </p>
+        </motion.div>
 
-      <div className="mt-6 flex flex-wrap gap-2">
-        <button
-          onClick={() => setFilter("all")}
-          className={`px-3 py-1.5 rounded-md text-xs border transition ${
-            filter === "all"
-              ? "bg-green-500/15 text-green-300 border-green-400/40"
-              : "bg-card text-muted-foreground border-border hover:text-foreground"
-          }`}
-        >
-          {lang === "es" ? "Todos" : "All"} <span className="opacity-50">({list.length})</span>
-        </button>
-        {cats.map((c) => (
+        <div className="mt-8 flex flex-wrap gap-2">
           <button
-            key={c}
-            onClick={() => setFilter(c)}
-            className={`px-3 py-1.5 rounded-md text-xs border transition ${
-              filter === c
-                ? "bg-green-500/15 text-green-300 border-green-400/40"
-                : "bg-card text-muted-foreground border-border hover:text-foreground"
+            onClick={() => setFilter("all")}
+            className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wide transition-colors duration-300 ${
+              filter === "all"
+                ? "bg-primary text-primary-foreground"
+                : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
             }`}
           >
-            {labels[c] ?? c} <span className="opacity-50">({grouped[c].length})</span>
+            {lang === "es" ? "Todos" : "All"} <span className="opacity-60">({list.length})</span>
           </button>
-        ))}
-      </div>
+          {cats.map((c) => (
+            <button
+              key={c}
+              onClick={() => setFilter(c)}
+              className={`px-4 py-2 rounded-full text-xs font-mono uppercase tracking-wide transition-colors duration-300 ${
+                filter === c
+                  ? "bg-primary text-primary-foreground"
+                  : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
+              }`}
+            >
+              {labels[c] ?? c} <span className="opacity-60">({grouped[c].length})</span>
+            </button>
+          ))}
+        </div>
 
-      <div className="mt-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-        {filtered.map((tech) => (
-          <div
-            key={tech.id}
-            className="group relative rounded-xl border border-border bg-card/60 p-4 flex flex-col items-center gap-3 hover:border-green-400/40 hover:bg-card hover:-translate-y-0.5 transition-all"
-          >
-            <TechLogo name={tech.name} src={tech.icon_url} size={40} />
-            <div className="text-xs text-center truncate w-full">{tech.name}</div>
-          </div>
-        ))}
-        {filtered.length === 0 && (
-          <div className="col-span-full text-center text-sm text-muted-foreground py-12">
-            {lang === "es" ? "Sin resultados" : "No results"}
-          </div>
-        )}
+        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          {filtered.map((tech, i) => (
+            <motion.div
+              key={tech.id}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.35, delay: (i % 10) * 0.03 }}
+              className="group relative rounded-2xl border border-border bg-card p-5 flex flex-col items-center gap-3 hover:border-primary/60 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="transition-transform duration-300 group-hover:scale-110">
+                <TechLogo name={tech.name} src={tech.icon_url} size={40} />
+              </div>
+              <div className="font-mono text-xs text-center truncate w-full group-hover:text-primary transition-colors duration-300">{tech.name}</div>
+            </motion.div>
+          ))}
+          {filtered.length === 0 && (
+            <div className="col-span-full text-center text-sm text-muted-foreground py-12">
+              {lang === "es" ? "Sin resultados" : "No results"}
+            </div>
+          )}
+        </div>
       </div>
     </SiteLayout>
   );

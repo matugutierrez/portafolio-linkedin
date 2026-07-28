@@ -23,6 +23,7 @@ import { Route as ProyectosSlugRouteImport } from './routes/proyectos.$slug'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as ProyectosSlugReadmeRouteImport } from './routes/proyectos_.$slug.readme'
 import { Route as AuthenticatedAdminTecnologiasRouteImport } from './routes/_authenticated/admin.tecnologias'
 import { Route as AuthenticatedAdminProyectosRouteImport } from './routes/_authenticated/admin.proyectos'
 import { Route as AuthenticatedAdminPerfilRouteImport } from './routes/_authenticated/admin.perfil'
@@ -102,6 +103,11 @@ const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedAdminRoute,
 } as any)
+const ProyectosSlugReadmeRoute = ProyectosSlugReadmeRouteImport.update({
+  id: '/proyectos_/$slug/readme',
+  path: '/proyectos/$slug/readme',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedAdminTecnologiasRoute =
   AuthenticatedAdminTecnologiasRouteImport.update({
     id: '/tecnologias',
@@ -178,6 +184,7 @@ export interface FileRoutesByFullPath {
   '/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/proyectos/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
@@ -201,6 +208,7 @@ export interface FileRoutesByTo {
   '/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/proyectos/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
@@ -227,6 +235,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/_authenticated/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/_authenticated/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/proyectos_/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
@@ -253,6 +262,7 @@ export interface FileRouteTypes {
     | '/admin/perfil'
     | '/admin/proyectos'
     | '/admin/tecnologias'
+    | '/proyectos/$slug/readme'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -276,6 +286,7 @@ export interface FileRouteTypes {
     | '/admin/perfil'
     | '/admin/proyectos'
     | '/admin/tecnologias'
+    | '/proyectos/$slug/readme'
     | '/admin'
   id:
     | '__root__'
@@ -301,6 +312,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/perfil'
     | '/_authenticated/admin/proyectos'
     | '/_authenticated/admin/tecnologias'
+    | '/proyectos_/$slug/readme'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
@@ -316,6 +328,7 @@ export interface RootRouteChildren {
   SobreMiRoute: typeof SobreMiRoute
   TecnologiasRoute: typeof TecnologiasRoute
   ApiChatRoute: typeof ApiChatRoute
+  ProyectosSlugReadmeRoute: typeof ProyectosSlugReadmeRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -417,6 +430,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/admin/'
       preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
       parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/proyectos_/$slug/readme': {
+      id: '/proyectos_/$slug/readme'
+      path: '/proyectos/$slug/readme'
+      fullPath: '/proyectos/$slug/readme'
+      preLoaderRoute: typeof ProyectosSlugReadmeRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/tecnologias': {
       id: '/_authenticated/admin/tecnologias'
@@ -548,6 +568,7 @@ const rootRouteChildren: RootRouteChildren = {
   SobreMiRoute: SobreMiRoute,
   TecnologiasRoute: TecnologiasRoute,
   ApiChatRoute: ApiChatRoute,
+  ProyectosSlugReadmeRoute: ProyectosSlugReadmeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

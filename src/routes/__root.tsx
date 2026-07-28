@@ -99,7 +99,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap",
       },
     ],
   }),
@@ -116,7 +116,7 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var r=document.documentElement;var legacy=localStorage.getItem('ui-os-theme');var os=localStorage.getItem('ui-os');var mode=localStorage.getItem('ui-mode');if(!os){if(legacy==='mac')os='mac';else os='windows';}if(!mode){if(legacy==='light')mode='light';else mode='dark';}if(os!=='windows'&&os!=='mac')os='windows';if(mode!=='dark'&&mode!=='light')mode='dark';r.classList.remove('os-windows','os-mac','theme-dark','theme-light','theme-mac');r.classList.add('os-'+os,'theme-'+mode);r.classList.toggle('dark',mode==='dark');}catch(e){}})();`,
+            __html: `(function(){try{var r=document.documentElement;r.classList.remove('os-windows','os-mac','theme-dark','theme-light','theme-mac');r.classList.add('os-windows','theme-dark','dark');}catch(e){}})();`,
           }}
         />
       </head>

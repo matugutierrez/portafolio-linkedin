@@ -20,30 +20,45 @@ function Experiencia() {
   });
   return (
     <SiteLayout>
-      <div className="text-foreground text-sm uppercase tracking-widest font-medium">{t.nav.experience}</div>
-      <h1 className="text-4xl sm:text-5xl font-bold mt-2">{lang === "es" ? "Trayectoria profesional" : "Professional journey"}</h1>
-      <div className="mt-10 relative pl-8 border-l border-border space-y-8">
-        {(data ?? []).map((e, i) => (
-          <motion.div
-            key={e.id}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: i * 0.05 }}
-            className="relative"
-          >
-            <div className="absolute -left-[34px] top-1 size-3 rounded-full bg-green-700 ring-4 ring-background" />
-            <div className="rounded-2xl border border-border bg-card p-5">
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Briefcase className="size-3.5" /> {e.company}
-                {e.location && <span>· {e.location}</span>}
+      <div className="px-4 sm:px-8 max-w-7xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}>
+          <div className="font-mono text-xs uppercase tracking-widest text-primary">{t.nav.experience}</div>
+          <h1 className="mt-3 font-display font-bold uppercase tracking-tight leading-[0.95] text-[clamp(2.5rem,7vw,5.5rem)]">
+            {lang === "es" ? "Trayectoria profesional" : "Professional journey"}
+          </h1>
+        </motion.div>
+
+        <div className="mt-14">
+          {(data ?? []).map((e, i) => (
+            <motion.div
+              key={e.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.05 }}
+              className="group border-t border-border last:border-b py-8 grid gap-4 md:grid-cols-[110px_1fr_auto] md:items-start hover:bg-card/60 transition-colors duration-300 px-2 sm:px-4 -mx-2 sm:-mx-4"
+            >
+              <div className="font-mono text-xs text-muted-foreground pt-2 tracking-widest">
+                {String(i + 1).padStart(2, "0")}
               </div>
-              <div className="mt-1 text-xl font-semibold">{lang === "es" ? e.role_es : e.role_en}</div>
-              <div className="text-xs text-muted-foreground mt-1">{formatDateRange(e.start_date, e.end_date, lang)}</div>
-              <p className="mt-3 text-sm text-muted-foreground">{lang === "es" ? e.description_es : e.description_en}</p>
-            </div>
-          </motion.div>
-        ))}
+              <div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Briefcase className="size-3.5 text-primary" /> {e.company}
+                  {e.location && <span>· {e.location}</span>}
+                </div>
+                <div className="mt-2 font-display text-2xl sm:text-3xl font-bold tracking-tight group-hover:text-primary transition-colors duration-300">
+                  {lang === "es" ? e.role_es : e.role_en}
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground max-w-2xl leading-relaxed">
+                  {lang === "es" ? e.description_es : e.description_en}
+                </p>
+              </div>
+              <div className="font-mono text-xs text-muted-foreground md:text-right pt-2">
+                {formatDateRange(e.start_date, e.end_date, lang)}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </SiteLayout>
   );
