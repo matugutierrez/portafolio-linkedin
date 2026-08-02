@@ -69,20 +69,16 @@ function BentoCard({ project, index, catLabel, hero }: { project: any; index: nu
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {/* Media a pantalla completa (solo lo cargado en admin) */}
         <CardMedia project={project} hovered={hovered} />
 
-        {/* Gradiente inferior para legibilidad */}
         <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/70 via-black/20 to-transparent pointer-events-none" />
 
-        {/* Oscurecido sutil on hover */}
         <motion.div
           className="absolute inset-0 bg-black pointer-events-none"
           animate={{ opacity: hovered ? 0.12 : 0 }}
           transition={{ duration: 0.4 }}
         />
 
-        {/* Logo circular + nombre + categoría (estilo Paisanos) */}
         <div className="absolute bottom-5 left-5 sm:bottom-6 sm:left-6 flex items-center gap-3">
           {initials && (
             <div className="size-10 sm:size-11 rounded-full bg-white/15 backdrop-blur-md border border-white/20 flex items-center justify-center shrink-0">
@@ -105,7 +101,6 @@ function BentoCard({ project, index, catLabel, hero }: { project: any; index: nu
           </div>
         </div>
 
-        {/* Flecha circular que entra on hover */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -120,7 +115,6 @@ function BentoCard({ project, index, catLabel, hero }: { project: any; index: nu
           )}
         </AnimatePresence>
 
-        {/* Chips de stack que suben on hover */}
         <AnimatePresence>
           {hovered && Array.isArray(project.stack) && project.stack.length > 0 && (
             <motion.div
@@ -139,7 +133,6 @@ function BentoCard({ project, index, catLabel, hero }: { project: any; index: nu
           )}
         </AnimatePresence>
 
-        {/* Badge Live arriba a la izquierda */}
         {project.demo_url && (
           <div className="absolute top-5 left-5 sm:top-6 sm:left-6">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-black/40 backdrop-blur border border-white/15 px-3 py-1.5 text-xs font-mono text-white">
@@ -198,7 +191,6 @@ function Proyectos() {
           ))}
         </div>
 
-        {/* Grilla bento estilo Paisanos: hero full-width + 2 columnas */}
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
           {list.map((p, i) => (
             <BentoCard key={p.id} project={p} index={i} catLabel={catLabel(p.category)} hero={i === 0} />

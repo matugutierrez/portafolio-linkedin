@@ -220,7 +220,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
           )}
         </AnimatePresence>
 
-        {/* Live badge */}
         {project.demo_url && (
           <div className="absolute top-4 left-4">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-background/70 backdrop-blur border border-border px-3 py-1.5 text-xs font-mono">
@@ -231,7 +230,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
         )}
       </div>
 
-      {/* Footer row */}
       <div className="mt-4 pb-6 flex flex-wrap items-center justify-between gap-4 px-2 sm:px-0">
         <p className="text-sm text-muted-foreground max-w-xl leading-relaxed">{description}</p>
         <div className="flex flex-wrap items-center gap-2">
