@@ -20,7 +20,6 @@ export const Route = createFileRoute("/proyectos")({
 });
 
 function CardMedia({ project, hovered }: { project: any; hovered: boolean }) {
-  // 1) Video subido desde /admin (Supabase Storage)
   if (project.video_url) {
     return (
       <motion.video
@@ -35,7 +34,6 @@ function CardMedia({ project, hovered }: { project: any; hovered: boolean }) {
       />
     );
   }
-  // 2) Imagen de portada subida desde /admin
   if (project.cover_url) {
     return (
       <motion.img
@@ -47,7 +45,6 @@ function CardMedia({ project, hovered }: { project: any; hovered: boolean }) {
       />
     );
   }
-  // 3) Sin media cargada en admin: fondo neutro, no se muestra nada hardcodeado
   return <div className="absolute inset-0 bg-secondary" />;
 }
 

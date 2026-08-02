@@ -1,9 +1,6 @@
-// Catálogo de tecnologías. Primero intenta usar logos originales/multicolor de Devicon
-// y si no existe usa Simple Icons con el color oficial de marca.
 export type Tech = { slug: string; label: string; color: string; customUrl?: string };
 
 export const TECHS: Tech[] = [
-  // Frontend frameworks / meta-frameworks
   { slug: "react", label: "React", color: "61DAFB" },
   { slug: "nextdotjs", label: "Next.js", color: "FFFFFF" },
   { slug: "vuedotjs", label: "Vue", color: "4FC08D" },
@@ -24,7 +21,6 @@ export const TECHS: Tech[] = [
   { slug: "redux", label: "Redux", color: "764ABC" },
   { slug: "mobx", label: "MobX", color: "FF9955" },
   { slug: "zod", label: "Zod", color: "3E67B1" },
-  // Languages
   { slug: "javascript", label: "JavaScript", color: "F7DF1E" },
   { slug: "typescript", label: "TypeScript", color: "3178C6" },
   { slug: "html5", label: "HTML5", color: "E34F26" },
@@ -63,7 +59,6 @@ export const TECHS: Tech[] = [
   { slug: "webassembly", label: "WebAssembly", color: "654FF0" },
   { slug: "solidity", label: "Solidity", color: "363636" },
   { slug: "elm", label: "Elm", color: "1293D8" },
-  // CSS / UI
   { slug: "tailwindcss", label: "Tailwind", color: "06B6D4" },
   { slug: "sass", label: "Sass", color: "CC6699" },
   { slug: "less", label: "Less", color: "1D365D" },
@@ -75,7 +70,6 @@ export const TECHS: Tech[] = [
   { slug: "shadcnui", label: "shadcn/ui", color: "FFFFFF" },
   { slug: "styledcomponents", label: "Styled Components", color: "DB7093" },
   { slug: "framer", label: "Framer", color: "0055FF" },
-  // Backend
   { slug: "nodedotjs", label: "Node.js", color: "5FA04E" },
   { slug: "bun", label: "Bun", color: "FFFFFF" },
   { slug: "deno", label: "Deno", color: "FFFFFF" },
@@ -100,7 +94,6 @@ export const TECHS: Tech[] = [
   { slug: "electron", label: "Electron", color: "47848F" },
   { slug: "tauri", label: "Tauri", color: "FFC131" },
   { slug: "tanstack", label: "TanStack Router", color: "FF4154" },
-  // Databases
   { slug: "postgresql", label: "PostgreSQL", color: "4169E1" },
   { slug: "mysql", label: "MySQL", color: "4479A1" },
   { slug: "mariadb", label: "MariaDB", color: "003545" },
@@ -125,7 +118,6 @@ export const TECHS: Tech[] = [
   { slug: "graphql", label: "GraphQL", color: "E10098" },
   { slug: "apollographql", label: "Apollo", color: "FFFFFF" },
   { slug: "trpc", label: "tRPC", color: "2596BE" },
-  // DevOps / Cloud
   { slug: "docker", label: "Docker", color: "2496ED" },
   { slug: "kubernetes", label: "Kubernetes", color: "326CE5" },
   { slug: "podman", label: "Podman", color: "892CA0" },
@@ -161,7 +153,6 @@ export const TECHS: Tech[] = [
   { slug: "windows", label: "Windows", color: "0078D4" },
   { slug: "android", label: "Android", color: "34A853" },
   { slug: "ios", label: "iOS", color: "FFFFFF" },
-  // CI/CD & VCS
   { slug: "git", label: "Git", color: "F05032" },
   { slug: "github", label: "GitHub", color: "FFFFFF" },
   { slug: "githubactions", label: "GitHub Actions", color: "2088FF" },
@@ -171,7 +162,6 @@ export const TECHS: Tech[] = [
   { slug: "circleci", label: "CircleCI", color: "343434" },
   { slug: "travisci", label: "Travis CI", color: "3EAAAF" },
   { slug: "argo", label: "Argo CD", color: "EF7B4D" },
-  // Build tools
   { slug: "vite", label: "Vite", color: "646CFF" },
   { slug: "webpack", label: "Webpack", color: "8DD6F9" },
   { slug: "rollupdotjs", label: "Rollup", color: "EC4A3F" },
@@ -182,7 +172,6 @@ export const TECHS: Tech[] = [
   { slug: "pnpm", label: "pnpm", color: "F69220" },
   { slug: "yarn", label: "Yarn", color: "2C8EBB" },
   { slug: "npm", label: "npm", color: "CB3837" },
-  // Testing
   { slug: "jest", label: "Jest", color: "C21325" },
   { slug: "vitest", label: "Vitest", color: "6E9F18" },
   { slug: "mocha", label: "Mocha", color: "8D6748" },
@@ -192,7 +181,6 @@ export const TECHS: Tech[] = [
   { slug: "puppeteer", label: "Puppeteer", color: "40B5A4" },
   { slug: "storybook", label: "Storybook", color: "FF4785" },
   { slug: "testinglibrary", label: "Testing Library", color: "E33332" },
-  // Design
   { slug: "figma", label: "Figma", color: "F24E1E" },
   { slug: "adobexd", label: "Adobe XD", color: "FF61F6" },
   { slug: "adobephotoshop", label: "Photoshop", color: "31A8FF" },
@@ -202,7 +190,6 @@ export const TECHS: Tech[] = [
   { slug: "sketch", label: "Sketch", color: "F7B500" },
   { slug: "canva", label: "Canva", color: "00C4CC" },
   { slug: "blender", label: "Blender", color: "E87D0D" },
-  // AI / Data
   { slug: "openai", label: "OpenAI", color: "FFFFFF" },
   { slug: "anthropic", label: "Anthropic", color: "D4A27F" },
   { slug: "googlegemini", label: "Gemini", color: "8E75B2" },
@@ -216,11 +203,9 @@ export const TECHS: Tech[] = [
   { slug: "jupyter", label: "Jupyter", color: "F37626" },
   { slug: "langchain", label: "LangChain", color: "1C3C3C" },
   { slug: "ollama", label: "Ollama", color: "FFFFFF" },
-  // Messaging / Streams
   { slug: "apachekafka", label: "Kafka", color: "FFFFFF" },
   { slug: "rabbitmq", label: "RabbitMQ", color: "FF6600" },
   { slug: "nats", label: "NATS", color: "27AAE1" },
-  // Payments / SaaS APIs
   { slug: "stripe", label: "Stripe", color: "635BFF" },
   { slug: "paypal", label: "PayPal", color: "00457C" },
   { slug: "mercadopago", label: "Mercado Pago", color: "00B1EA" },
@@ -231,7 +216,6 @@ export const TECHS: Tech[] = [
   { slug: "auth0", label: "Auth0", color: "EB5424" },
   { slug: "clerk", label: "Clerk", color: "6C47FF" },
   { slug: "okta", label: "Okta", color: "007DC1" },
-  // Tools
   { slug: "postman", label: "Postman", color: "FF6C37" },
   { slug: "insomnia", label: "Insomnia", color: "4000BF" },
   { slug: "swagger", label: "Swagger", color: "85EA2D" },
@@ -267,14 +251,12 @@ export const TECHS: Tech[] = [
   { slug: "anaconda", label: "Anaconda", color: "44A833" },
   { slug: "pypi", label: "pip / PyPI", color: "3775A9" },
   { slug: "poetry", label: "Poetry", color: "60A5FA" },
-  // CMS / Site
   { slug: "wordpress", label: "WordPress", color: "21759B" },
   { slug: "shopify", label: "Shopify", color: "7AB55C" },
   { slug: "strapi", label: "Strapi", color: "4945FF" },
   { slug: "sanity", label: "Sanity", color: "F03E2F" },
   { slug: "contentful", label: "Contentful", color: "2478CC" },
   { slug: "ghost", label: "Ghost", color: "FFFFFF" },
-  // Game / 3D
   { slug: "unity", label: "Unity", color: "FFFFFF" },
   { slug: "unrealengine", label: "Unreal Engine", color: "FFFFFF" },
   { slug: "godotengine", label: "Godot", color: "478CBF" },
@@ -476,7 +458,6 @@ export function techIconUrl(t: Tech): string {
   return `https://cdn.simpleicons.org/${t.slug}/${t.color}`;
 }
 
-// ====== Auto-categorización ======
 export type TechCategory = "frontend" | "backend" | "devops" | "tools" | "design" | "ai";
 
 const CATEGORY_BY_SLUG: Record<string, TechCategory> = {};

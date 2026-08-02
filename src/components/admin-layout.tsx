@@ -83,9 +83,9 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
       className="min-h-screen flex text-white"
       style={{ background: "oklch(0.13 0.002 260)", fontFamily: "'Space Grotesk', sans-serif" }}
     >
-      {/* ── Sidebar ── */}
+      {}
       <aside className="hidden md:flex flex-col w-64 shrink-0 h-screen sticky top-0 p-4" style={{ borderRight: "1px solid rgba(255,255,255,0.07)" }}>
-        {/* Brand */}
+        {}
         <div className="flex items-center gap-3 px-1 mb-6">
           <div
             className="size-9 rounded-xl flex items-center justify-center font-black text-sm"
@@ -104,14 +104,14 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
         <NavFooter />
       </aside>
 
-      {/* ── Main ── */}
+      {}
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Header */}
+        {}
         <header
           className="sticky top-0 z-20 px-4 md:px-8 py-4 flex items-center gap-4 backdrop-blur-xl"
           style={{ borderBottom: "1px solid rgba(255,255,255,0.07)", background: "oklch(0.13 0.002 260 / 0.85)" }}
         >
-          {/* Mobile hamburger */}
+          {}
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
               <button
@@ -136,14 +136,14 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
             </SheetContent>
           </Sheet>
 
-          {/* Breadcrumb */}
+          {}
           <div className="flex items-center gap-2">
             <span className="text-white/30 text-sm font-mono">Admin</span>
             <span className="text-white/20 text-xs">/</span>
             <h1 className="text-base font-bold tracking-tight">{title}</h1>
           </div>
 
-          {/* Live badge */}
+          {}
           <div
             className="ml-auto hidden sm:flex items-center gap-2 text-xs px-3 py-1.5 rounded-full"
             style={{ background: "oklch(0.88 0.2 128 / 0.12)", border: "1px solid oklch(0.88 0.2 128 / 0.25)", color: "oklch(0.88 0.2 128)" }}

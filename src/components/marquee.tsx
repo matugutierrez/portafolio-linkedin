@@ -17,7 +17,7 @@ export function Marquee({
 }: MarqueeProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const posRef = useRef(0);
-  const speedRef = useRef(1); // current 0..1
+  const speedRef = useRef(1);
   const targetSpeedRef = useRef(1);
   const rafRef = useRef<number | null>(null);
   const lastTsRef = useRef<number | null>(null);

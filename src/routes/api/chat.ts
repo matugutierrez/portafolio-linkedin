@@ -11,7 +11,6 @@ export const Route = createFileRoute("/api/chat")({
 
           const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-          // Load portfolio context
           const { createClient } = await import("@supabase/supabase-js");
           const supa = createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_PUBLISHABLE_KEY!, {
             auth: { storage: undefined, persistSession: false, autoRefreshToken: false },

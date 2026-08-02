@@ -46,7 +46,6 @@ export function SiteHeader() {
     <>
       <header className="fixed top-0 inset-x-0 z-[70]">
         <div className="flex items-center justify-between px-4 sm:px-8 py-4">
-          {/* Logo */}
           <Link
             to="/"
             onClick={() => setOpen(false)}
@@ -99,7 +98,6 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* Fullscreen interactive menu */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -111,7 +109,6 @@ export function SiteHeader() {
             className="fixed inset-0 z-[65] bg-background flex flex-col"
           >
             <div className="flex-1 overflow-y-auto pt-24 pb-8 px-4 sm:px-8 grid lg:grid-cols-[1fr_minmax(260px,360px)] gap-10">
-              {/* Giant links */}
               <nav className="flex flex-col justify-center">
                 {items.map((it, i) => {
                   const active = loc.pathname === it.to || (it.to !== "/" && loc.pathname.startsWith(it.to));
@@ -140,7 +137,6 @@ export function SiteHeader() {
                 })}
               </nav>
 
-              {/* Side info */}
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -182,7 +178,6 @@ export function SiteHeader() {
               </motion.div>
             </div>
 
-            {/* Bottom marquee inside the menu */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

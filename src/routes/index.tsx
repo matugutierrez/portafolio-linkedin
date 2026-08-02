@@ -30,7 +30,6 @@ export const Route = createFileRoute("/")({
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-// Char-by-char stagger
 function AnimatedText({ text, delay = 0, className = "" }: { text: string; delay?: number; className?: string }) {
   return (
     <span className={`inline-block overflow-hidden ${className}`}>
@@ -50,7 +49,6 @@ function AnimatedText({ text, delay = 0, className = "" }: { text: string; delay
   );
 }
 
-// Project showcase row (paisanos-style)
 function HeroFloatCard({ project, className, depth, duration, mx, my }: { project: any; className: string; depth: number; duration: number; mx: any; my: any }) {
   const x = useSpring(useTransform(mx, (v: number) => v * depth), { stiffness: 50, damping: 20 });
   const y = useSpring(useTransform(my, (v: number) => v * depth), { stiffness: 50, damping: 20 });
@@ -99,7 +97,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      {/* Header row */}
       <div className="flex items-baseline justify-between gap-4 pt-6 px-2 sm:px-0">
         <div className="flex items-baseline gap-4 sm:gap-6 flex-1 min-w-0">
           <span className="font-mono text-xs text-primary tracking-widest shrink-0">
@@ -122,7 +119,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
         </motion.div>
       </div>
 
-      {/* Cinematic image container */}
       <div className="relative mt-4 overflow-hidden rounded-2xl aspect-[16/7] bg-secondary">
         {(() => {
           if (project.video_url) {
@@ -151,7 +147,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
           return <div className="absolute inset-0 bg-secondary" />;
         })()}
 
-        {/* Scanline / video overlay on hover */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -167,7 +162,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
           )}
         </AnimatePresence>
 
-        {/* Play / expand overlay */}
         <AnimatePresence>
           {hovered && (
             <motion.div
@@ -265,7 +259,6 @@ function ProjectRow({ project, index, lang }: { project: any; index: number; lan
   );
 }
 
-// Service accordion item
 function ServiceItem({ number, title, description, delay }: { number: string; title: string; description: string; delay: number }) {
   const [open, setOpen] = useState(false);
   return (
@@ -330,7 +323,6 @@ function Index() {
       (await supabase.from("projects").select("*").eq("featured", true).order("display_order")).data ?? [],
   });
 
-  // Cards flotantes del hero: solo proyectos con media cargada desde /admin
   const heroCards = ((projects ?? []) as any[]).filter((p) => p.video_url || p.cover_url).slice(0, 3);
 
   const techWords: string[] =
@@ -397,7 +389,6 @@ function Index() {
 
   return (
     <SiteLayout>
-      {/* ===== HERO ===== */}
       <section
         ref={heroRef}
         onMouseMove={(e) => {
@@ -408,7 +399,6 @@ function Index() {
         }}
         className="relative min-h-[92vh] flex flex-col justify-between px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
       >
-        {/* Background glow orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div
             className="absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full opacity-[0.07]"
@@ -424,7 +414,6 @@ function Index() {
           />
         </div>
 
-        {/* Cards flotantes estilo Paisanos (solo media cargada en admin) */}
         {heroCards[0] && (
           <HeroFloatCard project={heroCards[0]} mx={heroMx} my={heroMy} depth={0.045} duration={5.5} className="right-[3%] top-[13%] w-64 -rotate-3" />
         )}
@@ -435,7 +424,6 @@ function Index() {
           <HeroFloatCard project={heroCards[2]} mx={heroMx} my={heroMy} depth={0.025} duration={7} className="left-[38%] top-[9%] w-40 rotate-1" />
         )}
 
-        {/* Top badges */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -452,7 +440,6 @@ function Index() {
           </div>
         </motion.div>
 
-        {/* Giant name */}
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="relative z-10">
           <div className="font-display font-black uppercase leading-[0.88] tracking-tight select-none">
             <div className="overflow-hidden">
@@ -506,7 +493,6 @@ function Index() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -523,7 +509,6 @@ function Index() {
         </motion.div>
       </section>
 
-      {/* ===== MARQUEE BAND (symmetric with center divider) ===== */}
       <div className="border-t border-border">
         <div className="py-4 sm:py-5">
           <Marquee duration={55} repeat={3}>
@@ -545,7 +530,6 @@ function Index() {
       </div>
       <div className="border-b border-border" />
 
-      {/* ===== STATS — editorial magazine style ===== */}
       <section className="mt-20 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="font-mono text-xs text-primary tracking-widest">01</span>
@@ -561,17 +545,13 @@ function Index() {
               transition={{ duration: 0.6, delay: i * 0.1, ease }}
               className="group relative px-5 sm:px-8 py-8 sm:py-12 flex flex-col gap-1 hover:bg-primary/5 transition-colors duration-500 overflow-hidden"
             >
-              {/* Giant number */}
               <div className="font-display font-black text-[clamp(3rem,7vw,6rem)] leading-none tracking-tight text-primary transition-transform duration-500 group-hover:scale-105 origin-bottom-left">
                 {s.value}
               </div>
-              {/* Thin divider */}
               <div className="my-3 h-px w-8 bg-primary/40 transition-all duration-500 group-hover:w-full" />
-              {/* Label */}
               <div className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground whitespace-pre-line leading-loose">
                 {s.label}
               </div>
-              {/* Background number watermark */}
               <div
                 className="pointer-events-none absolute -right-2 -bottom-4 font-display font-black text-[8rem] leading-none opacity-[0.04] select-none"
                 aria-hidden
@@ -583,7 +563,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ===== SELECTED WORK (paisanos-style) ===== */}
       <section className="mt-24 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
           <div>
@@ -618,7 +597,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ===== SERVICES — accordion ===== */}
       <section className="mt-24 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex items-baseline gap-4 mb-10">
           <span className="font-mono text-xs text-primary tracking-widest">03</span>
@@ -662,7 +640,6 @@ function Index() {
         </div>
       </section>
 
-      {/* ===== ABOUT TEASER ===== */}
       <section className="mt-24 max-w-7xl mx-auto px-4 sm:px-8">
         <motion.div
           initial={{ opacity: 0, y: 32 }}

@@ -14,7 +14,6 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-24">
-      {/* CTA marquee band */}
       <Link to="/contacto" className="block group border-y border-border bg-primary text-primary-foreground">
         <Marquee duration={20} repeat={3} className="py-5 sm:py-7">
           <span className="inline-flex items-center font-display font-bold uppercase tracking-tight text-3xl sm:text-5xl">
