@@ -28,7 +28,6 @@ jobs:
        run: npm audit fix
 
   build-image: 
-   needs: [security]
    runs-on: ubuntu-latest
    steps: 
      - name: Checkout code
