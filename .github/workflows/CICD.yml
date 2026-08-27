@@ -25,7 +25,7 @@ jobs:
        run: npm ci  
 
      - name: security
-       run: npm audit 
+       run: npm audit --audit-level=high
 
   build-image: 
    needs: [security]
