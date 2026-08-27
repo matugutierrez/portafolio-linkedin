@@ -1,0 +1,36 @@
+name: Deploy a Azure VM
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-prod
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy por SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          command_timeout: 30m
+          script_stop: true
+          script: |
+            set -e
+            cd ~/portafolio-linkedin
+            git fetch origin
+            git reset --hard origin/main
+            docker build -f dockerfile -t portafolio:new .
+            docker ps -aq --filter publish=3000 | xargs -r docker rm -f
+            docker rm -f portafolio 2>/dev/null || true
+            docker run -d --name portafolio --restart unless-stopped \
+              --env-file .env -p 127.0.0.1:3000:3000 portafolio:new
+            docker image prune -f
+            sleep 6
+            curl -sf -o /dev/null http://127.0.0.1:3000/ && echo "deploy OK"
