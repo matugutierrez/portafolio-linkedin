@@ -261,6 +261,13 @@ export const TECHS: Tech[] = [
   { slug: "unrealengine", label: "Unreal Engine", color: "FFFFFF" },
   { slug: "godotengine", label: "Godot", color: "478CBF" },
   { slug: "threedotjs", label: "Three.js", color: "FFFFFF" },
+  { slug: "jsonwebtokens", label: "JWT", color: "000000" },
+  { slug: "websocket", label: "WebSocket", color: "010101" },
+  { slug: "websockets", label: "WebSockets", color: "010101" },
+  { slug: "crud", label: "CRUD", color: "0A0A0A" },
+  { slug: "rest", label: "REST", color: "000000" },
+  { slug: "socketdotio", label: "Socket.io", color: "010101" },
+  { slug: "openapiinitiative", label: "OpenAPI", color: "6BA539" },
 ];
 
 const BY_SLUG = new Map(TECHS.map((t) => [t.slug, t]));
@@ -286,6 +293,13 @@ const ALIASES: Record<string, string> = {
   ".net": "dotnet",
   rails: "rubyonrails",
   "react native": "reactnative",
+  jwt: "jsonwebtokens",
+  websockets: "websocket",
+  websocket: "websocket",
+  "socket.io": "socketdotio",
+  crud: "crud",
+  rest: "rest",
+  "rest api": "rest",
 };
 
 const DEVICON_BASE = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons";

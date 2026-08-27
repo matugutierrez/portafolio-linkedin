@@ -80,7 +80,7 @@ function Page() {
           onChange={(v) => setForm({ ...form, featured_technologies: v })}
         />
         <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={!!form.available} onChange={(e) => setForm({ ...form, available: e.target.checked })} /> Disponible para trabajar</label>
-        <Button onClick={save} className="gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white border-0">
+        <Button onClick={save} className="gap-2 bg-primary text-white border-0">
           <Save className="size-4" /> Guardar perfil
         </Button>
       </div>
@@ -90,15 +90,38 @@ function Page() {
 
 function FeaturedTechPicker({ value, onChange }: { value: string[]; onChange: (v: string[]) => void }) {
   const [q, setQ] = useState("");
-  const opts = TECHS.map((t) => ({ value: t.label, label: t.label }));
-  const filtered = opts.filter((o) => o.label.toLowerCase().includes(q.toLowerCase()));
+  const { data: techRows = [] } = useQuery({
+    queryKey: ["technologies", "catalog"],
+    queryFn: async () => {
+      const { data } = await supabase.from("technologies").select("name,icon_url");
+      return (data ?? []) as { name: string; icon_url: string | null }[];
+    },
+  });
+  const { data: catalog = [] } = useQuery({
+    queryKey: ["tech_catalog"],
+    queryFn: async () => {
+      const { data } = await supabase.from("site_settings").select("value").eq("key", "tech_catalog").maybeSingle();
+      const items = (data?.value as any)?.items;
+      return Array.isArray(items) ? (items as { name: string; icon_url: string | null }[]) : [];
+    },
+  });
+  const catalogOpts = catalog.map((c) => ({ value: c.name, label: c.name }));
+  const techRowsOpts = techRows.map((c) => ({ value: c.name, label: c.name }));
+  const techOpts = TECHS.map((t) => ({ value: t.label, label: t.label }));
+  const merged = [...catalogOpts, ...techRowsOpts, ...techOpts];
+  const opts = Array.from(new Map(merged.map((o) => [o.value.toLowerCase(), o])).values());
+  const filtered = opts.filter((o) => o.label.toLowerCase().includes(q.toLowerCase()) && !value.includes(o.value));
   const toggle = (v: string) => {
     if (value.includes(v)) onChange(value.filter((x) => x !== v));
     else onChange([...value, v]);
   };
   const iconFor = (label: string) => {
+    const foundCatalog = catalog.find((c) => c.name.toLowerCase() === label.toLowerCase());
+    if (foundCatalog?.icon_url) return foundCatalog.icon_url;
+    const foundTech = techRows.find((c) => c.name.toLowerCase() === label.toLowerCase());
+    if (foundTech?.icon_url) return foundTech.icon_url;
     const t = resolveTech(label);
-    return t ? techIconUrl(t) : null;
+    return t ? techIconUrl(t) : `https://cdn.simpleicons.org/${label.toLowerCase().replace(/\s+/g, "")}/000000`;
   };
   return (
     <div className="space-y-2">
@@ -109,7 +132,7 @@ function FeaturedTechPicker({ value, onChange }: { value: string[]; onChange: (v
             const icon = iconFor(v);
             return (
               <button type="button" key={v} onClick={() => toggle(v)}
-                className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md bg-green-600/20 text-green-300 border border-green-600/40 hover:bg-green-600/30">
+                className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20">
                 {icon && <AdminTechIcon src={icon} size="xs" />}
                 {v}
                 <X className="size-3" />
@@ -126,7 +149,7 @@ function FeaturedTechPicker({ value, onChange }: { value: string[]; onChange: (v
           const icon = iconFor(o.value);
           return (
             <button type="button" key={o.value} onClick={() => toggle(o.value)}
-              className={`inline-flex items-center gap-2 text-xs px-2 py-1.5 rounded-md border transition ${selected ? "bg-green-600/20 text-green-300 border-green-600/40" : "bg-card text-foreground border-border hover:bg-accent"}`}>
+              className={`inline-flex items-center gap-2 text-xs px-2 py-1.5 rounded-md border transition ${selected ? "bg-primary/15 text-primary border-primary/30" : "bg-card text-foreground border-border hover:bg-accent"}`}>
               {icon && <AdminTechIcon src={icon} />}
               <span className="truncate">{o.label}</span>
             </button>

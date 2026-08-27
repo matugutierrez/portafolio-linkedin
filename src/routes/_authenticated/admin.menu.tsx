@@ -74,7 +74,7 @@ function AdminMenu() {
           <Button
             onClick={() => mut.mutate(local)}
             disabled={mut.isPending || isLoading}
-            className="bg-gradient-to-r from-green-600 to-green-700 text-white border-0"
+            className="bg-primary text-white border-0"
           >
             {mut.isPending ? "Guardando..." : "Guardar cambios"}
           </Button>

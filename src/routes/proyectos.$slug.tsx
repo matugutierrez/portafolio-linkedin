@@ -51,7 +51,7 @@ function ProjectDetail() {
       </p>
       <div className="mt-6 flex gap-3">
         {project.demo_url && (
-          <a href={project.demo_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-green-600 to-green-700 text-white text-sm">
+          <a href={project.demo_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white text-sm">
             <ExternalLink className="size-4" /> {lang === "es" ? "Ver demo" : "View demo"}
           </a>
         )}

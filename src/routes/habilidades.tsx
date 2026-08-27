@@ -4,19 +4,21 @@ import { motion } from "framer-motion";
 import { SiteLayout } from "@/components/site-layout";
 import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
-import { TechLogo } from "@/components/tech-badges";
 
 export const Route = createFileRoute("/habilidades")({
   head: () => ({ meta: [{ title: "Habilidades — Matías Gutiérrez" }, { name: "description", content: "Habilidades técnicas." }] }),
   component: Habilidades,
 });
 
-const CAT_META: Record<string, { es: string; en: string; tag: string }> = {
-  frontend: { es: "Frontend", en: "Frontend", tag: "ui" },
-  backend: { es: "Backend", en: "Backend", tag: "srv" },
-  devops: { es: "DevOps / Cloud", en: "DevOps / Cloud", tag: "ops" },
-  design: { es: "Diseño", en: "Design", tag: "dsg" },
-  tools: { es: "Herramientas", en: "Tools", tag: "tool" },
+const CAT_META: Record<string, { es: string; en: string }> = {
+  frontend: { es: "Frontend", en: "Frontend" },
+  backend: { es: "Backend", en: "Backend" },
+  devops: { es: "DevOps / Cloud", en: "DevOps / Cloud" },
+  design: { es: "Diseño", en: "Design" },
+  tools: { es: "Herramientas", en: "Tools" },
+  soft: { es: "Blandas", en: "Soft Skills" },
+  management: { es: "Gestión", en: "Management" },
+  ai: { es: "IA", en: "AI" },
 };
 
 function Habilidades() {
@@ -39,14 +41,13 @@ function Habilidades() {
           <h1 className="mt-3 font-display font-bold uppercase tracking-tight leading-[0.95] text-[clamp(2.5rem,7vw,5.5rem)]">
             {lang === "es" ? "Habilidades" : "Skills"}
           </h1>
-          <p className="mt-3 font-mono text-sm text-muted-foreground">
-            {lang === "es" ? "// agrupado automáticamente por categoría" : "// auto-grouped by category"}
+          <p className="mt-4 text-base text-muted-foreground max-w-2xl leading-relaxed">
+            {lang === "es" ? "Capacidades personales y técnicas organizadas como en un CV profesional, con el mismo lenguaje visual del portfolio." : "Personal and technical capabilities organized like a professional CV, with the same visual language as the portfolio."}
           </p>
         </motion.div>
-
-        <div className="mt-12 grid md:grid-cols-2 gap-5">
+        <div className="mt-12 space-y-6">
           {Object.entries(grouped).map(([cat, items], idx) => {
-            const meta = CAT_META[cat] ?? { es: cat, en: cat, tag: cat.slice(0, 3) };
+            const meta = CAT_META[cat] ?? { es: cat, en: cat };
             return (
               <motion.div
                 key={cat}
@@ -54,33 +55,39 @@ function Habilidades() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                className="group rounded-2xl border border-border bg-card overflow-hidden hover:border-primary/50 transition-colors duration-300"
+                className="rounded-2xl border border-border bg-card overflow-hidden"
               >
-                <div className="flex items-center justify-between px-5 py-4 border-b border-border">
+                <div className="flex items-baseline justify-between px-6 py-4 border-b border-border bg-card">
                   <div className="flex items-baseline gap-3">
                     <span className="font-mono text-xs text-primary tracking-widest">{String(idx + 1).padStart(2, "0")}</span>
-                    <span className="font-display font-bold uppercase tracking-tight text-lg group-hover:text-primary transition-colors duration-300">
-                      {lang === "es" ? meta.es : meta.en}
-                    </span>
+                    <span className="font-display font-bold uppercase tracking-tight text-base">{lang === "es" ? meta.es : meta.en}</span>
                   </div>
-                  <span className="font-mono text-[11px] text-muted-foreground">
-                    ~/{meta.tag} · {(items ?? []).length}
-                  </span>
+                  <span className="font-mono text-xs text-muted-foreground">{(items ?? []).length} {lang === "es" ? "habilidades" : "skills"}</span>
                 </div>
-                <div className="p-4 flex flex-wrap gap-2">
+                <div className="divide-y divide-border">
                   {(items ?? []).map((s: any) => (
-                    <div
-                      key={s.id}
-                      className="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-border bg-background hover:border-primary/60 hover:-translate-y-0.5 transition-all duration-200"
-                    >
-                      <TechLogo name={s.name} size={16} />
-                      <span className="font-mono text-xs">{s.name}</span>
+                    <div key={s.id} className="flex items-center justify-between gap-4 px-6 py-4">
+                      <div className="min-w-0">
+                        <div className="font-medium text-sm tracking-tight">{s.name}</div>
+                        <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest mt-1">{s.category}</div>
+                      </div>
+                      <div className="flex items-center gap-3 shrink-0">
+                        <div className="hidden sm:block w-24 h-1.5 rounded-full bg-border overflow-hidden">
+                          <div className="h-full bg-primary" style={{ width: `${Math.min(100, Math.max(0, Number(s.level) || 0))}%` }} />
+                        </div>
+                        <span className="font-mono text-xs text-muted-foreground w-8 text-right">{s.level}%</span>
+                      </div>
                     </div>
                   ))}
                 </div>
               </motion.div>
             );
           })}
+          {(data ?? []).length === 0 && (
+            <div className="rounded-2xl border border-dashed border-border p-12 text-center text-sm text-muted-foreground">
+              {lang === "es" ? "Aún no hay habilidades cargadas." : "No skills yet."}
+            </div>
+          )}
         </div>
       </div>
     </SiteLayout>

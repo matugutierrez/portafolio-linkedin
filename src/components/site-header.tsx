@@ -44,27 +44,23 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-[70]">
-        <div className="flex items-center justify-between px-4 sm:px-8 py-4">
+      <header className="fixed top-0 inset-x-0 z-[70] pointer-events-none">
+        <div className="flex items-center justify-between px-4 sm:px-6 py-3 max-w-7xl mx-auto pointer-events-auto">
           <Link
             to="/"
             onClick={() => setOpen(false)}
-            className="group inline-flex items-center gap-2 rounded-full border border-border bg-background/80 backdrop-blur px-4 py-2"
+            className="group inline-flex items-center gap-2 rounded-full border border-border bg-background/90 backdrop-blur px-4 py-2 shrink-0"
           >
             <span className="font-display font-bold tracking-tight text-sm sm:text-base">
               Matías Gutiérrez
             </span>
             <span className="text-primary transition-transform duration-300 group-hover:rotate-45">®</span>
           </Link>
-
-          <div className="flex items-center gap-2">
-            <div className="hidden sm:block">
-              <CvDownload variant="hero" />
-            </div>
-<button
+          <div className="flex items-center gap-2 shrink-0">
+            <button
               type="button"
               onClick={() => setLang(lang === "es" ? "en" : "es")}
-              className="rounded-full border border-border bg-background/80 backdrop-blur px-3 py-2 text-xs font-mono uppercase hover:bg-accent transition"
+              className="rounded-full border border-border bg-background/90 backdrop-blur px-3 py-2 text-xs font-mono uppercase hover:bg-accent transition"
               aria-label="Language"
             >
               <span className={lang === "es" ? "text-foreground" : "text-muted-foreground"}>es</span>
@@ -76,28 +72,19 @@ export function SiteHeader() {
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-label="Menu"
-              className={`group inline-flex items-center gap-3 rounded-full px-5 py-2 text-sm font-medium transition-colors duration-300 ${
-                open
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground"
-              }`}
+              className={`group inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors duration-300 ${open ? "bg-primary text-primary-foreground" : "bg-foreground text-background hover:bg-primary hover:text-primary-foreground"}`}
             >
               <span className="hidden sm:inline uppercase tracking-wide text-xs font-mono">
                 {open ? (lang === "es" ? "Cerrar" : "Close") : "Menú"}
               </span>
-              <span className="relative block w-5 h-3">
-                <span
-                  className={`absolute left-0 top-0 h-[2px] w-5 bg-current transition-transform duration-300 ${open ? "translate-y-[5px] rotate-45" : ""}`}
-                />
-                <span
-                  className={`absolute left-0 bottom-0 h-[2px] w-5 bg-current transition-transform duration-300 ${open ? "-translate-y-[5px] -rotate-45" : ""}`}
-                />
+              <span className="relative block w-4 h-3">
+                <span className={`absolute left-0 top-0 h-[2px] w-4 bg-current transition-transform duration-300 ${open ? "translate-y-[5px] rotate-45" : ""}`} />
+                <span className={`absolute left-0 bottom-0 h-[2px] w-4 bg-current transition-transform duration-300 ${open ? "-translate-y-[5px] -rotate-45" : ""}`} />
               </span>
             </button>
           </div>
         </div>
       </header>
-
       <AnimatePresence>
         {open && (
           <motion.div
@@ -121,11 +108,7 @@ export function SiteHeader() {
                       transition={{ delay: 0.15 + i * 0.05, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                       className="border-b border-border"
                     >
-                      <Link
-                        to={it.to}
-                        onClick={() => setOpen(false)}
-                        className="menu-giant group flex items-baseline gap-4 py-2 sm:py-3 text-[clamp(1.5rem,4.5vh,3rem)]"
-                      >
+                      <Link to={it.to} onClick={() => setOpen(false)} className="menu-giant group flex items-baseline gap-4 py-2 sm:py-3 text-[clamp(1.5rem,4.5vh,3rem)]">
                         <span className="font-mono text-xs sm:text-sm text-muted-foreground tracking-widest">
                           {String(i + 1).padStart(2, "0")}
                         </span>
@@ -136,7 +119,6 @@ export function SiteHeader() {
                   );
                 })}
               </nav>
-
               <motion.div
                 initial={{ opacity: 0, y: 24 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -177,7 +159,6 @@ export function SiteHeader() {
                 </div>
               </motion.div>
             </div>
-
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

@@ -1,9 +1,8 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { Home, User, FolderGit2, Briefcase, Wrench, Code2, GraduationCap, Mail, Github, Linkedin, Languages, Settings, Menu } from "lucide-react";
+import { Home, User, FolderGit2, Briefcase, Wrench, Code2, GraduationCap, Mail, Github, Linkedin, Languages, Menu } from "lucide-react";
 import { useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
-import { AdminLoginDialog } from "@/components/admin-login-dialog";
 import { useHiddenNav } from "@/lib/nav-settings";
 import { CvDownload } from "@/components/cv-download";
 import { useProfile, normalizeUrl } from "@/lib/use-profile";
@@ -31,7 +30,7 @@ export function SiteSidebar() {
   return (
     <aside className="hidden lg:flex flex-col w-64 shrink-0 h-screen sticky top-0 border-r border-border bg-sidebar text-sidebar-foreground p-6">
       <div className="flex items-center gap-3 mb-2">
-        <div className="size-12 rounded-xl bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white font-bold text-lg">
+        <div className="size-12 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-lg">
           MG
         </div>
         <div>
@@ -70,7 +69,7 @@ export function SiteSidebar() {
           </div>
         </div>
         <Link to="/contacto">
-          <Button className="w-full bg-gradient-to-r from-green-600 to-green-700 hover:opacity-90 text-white border-0">
+          <Button className="w-full bg-primary hover:opacity-90 text-white border-0">
             {t.hero.contact}
           </Button>
         </Link>
@@ -85,13 +84,6 @@ export function SiteSidebar() {
             {profile?.email && (
               <a href={`mailto:${profile.email}`} className="hover:text-foreground"><Mail className="size-4" /></a>
             )}
-            <AdminLoginDialog
-              trigger={
-                <button type="button" aria-label="Admin" className="hover:text-foreground">
-                  <Settings className="size-4" />
-                </button>
-              }
-            />
           </div>
           <div className="flex items-center gap-1">
             <button onClick={() => setLang(lang === "es" ? "en" : "es")} className="px-2 py-1 text-xs rounded hover:bg-sidebar-accent flex items-center gap-1">
@@ -126,7 +118,7 @@ export function MobileTopBar() {
   return (
     <div className="lg:hidden sticky top-0 z-40 bg-sidebar/95 backdrop-blur border-b border-border px-4 py-3 flex items-center justify-between">
       <Link to="/" className="flex items-center gap-2">
-          <div className="size-8 rounded-lg bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white font-bold text-sm">MG</div>
+          <div className="size-8 rounded-lg bg-primary flex items-center justify-center text-white font-bold text-sm">MG</div>
         <span className="font-semibold text-sidebar-foreground">Matías Gutiérrez</span>
       </Link>
       <div className="flex items-center gap-2">
@@ -160,25 +152,16 @@ export function MobileTopBar() {
                 );
               })}
             </nav>
-            <div className="border-t border-border pt-4 flex items-center justify-between">
-              <div className="flex gap-3 text-sidebar-foreground/80">
-                {profile?.github_url && (
-                  <a href={normalizeUrl(profile.github_url)} target="_blank" rel="noopener noreferrer" className="hover:text-foreground"><Github className="size-4" /></a>
-                )}
-                {profile?.linkedin_url && (
-                  <a href={normalizeUrl(profile.linkedin_url)} target="_blank" rel="noopener noreferrer" className="hover:text-foreground"><Linkedin className="size-4" /></a>
-                )}
-                {profile?.email && (
-                  <a href={`mailto:${profile.email}`} className="hover:text-foreground"><Mail className="size-4" /></a>
-                )}
-              </div>
-              <AdminLoginDialog
-                trigger={
-                  <button type="button" aria-label="Admin" className="flex items-center gap-2 px-3 py-1.5 rounded border border-border text-xs hover:bg-sidebar-accent">
-                    <Settings className="size-4" /> Admin
-                  </button>
-                }
-              />
+            <div className="border-t border-border pt-4 flex items-center gap-3 text-sidebar-foreground/80">
+              {profile?.github_url && (
+                <a href={normalizeUrl(profile.github_url)} target="_blank" rel="noopener noreferrer" className="hover:text-foreground"><Github className="size-4" /></a>
+              )}
+              {profile?.linkedin_url && (
+                <a href={normalizeUrl(profile.linkedin_url)} target="_blank" rel="noopener noreferrer" className="hover:text-foreground"><Linkedin className="size-4" /></a>
+              )}
+              {profile?.email && (
+                <a href={`mailto:${profile.email}`} className="hover:text-foreground"><Mail className="size-4" /></a>
+              )}
             </div>
           </SheetContent>
         </Sheet>

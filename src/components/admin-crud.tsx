@@ -41,7 +41,7 @@ function CategoryChips({
           onClick={() => onChange(c)}
           className={`text-[11px] px-2 py-1 rounded-md border transition ${
             active === c
-              ? "bg-green-500/15 text-green-300 border-green-400/40"
+              ? "bg-primary/15 text-primary border-primary/30"
               : "bg-card text-muted-foreground border-border hover:text-foreground"
           }`}
         >
@@ -184,7 +184,7 @@ export function AdminCrud({
     <div>
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold">{title}</h2>
-        <Button onClick={openCreate} className="gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white border-0">
+        <Button onClick={openCreate} className="gap-2 bg-primary text-primary-foreground border-0">
           <Plus className="size-4" /> Nuevo
         </Button>
       </div>
@@ -203,8 +203,8 @@ export function AdminCrud({
       </div>
 
       {open && form && (
-        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto" onClick={() => setOpen(false)}>
-          <div className="bg-card border border-border rounded-t-3xl sm:rounded-3xl w-full max-w-2xl p-6 max-h-[95vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
+          <div className="bg-card border border-border rounded-t-3xl sm:rounded-3xl w-full max-w-2xl p-6 max-h-[95vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold">{form.id ? "Editar" : "Nuevo"}</h3>
               <button onClick={() => setOpen(false)} className="p-2 rounded hover:bg-accent"><X className="size-4" /></button>
@@ -214,7 +214,7 @@ export function AdminCrud({
                 <FieldInput key={f.name} field={f} value={form[f.name]} onChange={(v) => setForm({ ...form, [f.name]: v })} />
               ))}
               <div className="flex gap-2 pt-4">
-                <Button type="submit" disabled={save.isPending} className="gap-2 bg-gradient-to-r from-green-600 to-green-700 text-white border-0">
+                <Button type="submit" disabled={save.isPending} className="gap-2 bg-primary text-primary-foreground border-0">
                   <Save className="size-4" /> Guardar
                 </Button>
                 <Button type="button" variant="outline" onClick={() => setOpen(false)}>Cancelar</Button>
@@ -301,7 +301,7 @@ function MultiPicker({
                 type="button"
                 key={v}
                 onClick={() => toggle(v)}
-                className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md bg-green-600/20 text-green-300 border border-green-600/40 hover:bg-green-600/30"
+                className="inline-flex items-center gap-1.5 text-xs px-2 py-1 rounded-md bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20"
               >
                 {icon && <AdminIcon src={icon} label={opt?.label ?? v} size="xs" />}
                 {opt?.label ?? v}
@@ -330,7 +330,7 @@ function MultiPicker({
               onClick={() => toggle(o.value)}
               className={`inline-flex items-center gap-2 text-xs px-2 py-1.5 rounded-md border transition ${
                 selected
-                  ? "bg-green-600/20 text-green-300 border-green-600/40"
+                  ? "bg-primary/15 text-primary border-primary/30"
                   : "bg-card text-foreground border-border hover:bg-accent"
               }`}
             >
@@ -400,7 +400,7 @@ function TechPicker({
               title={isDisabled ? o.disabledReason ?? "Ya está en uso en otra sección" : undefined}
               className={`inline-flex items-center gap-2 text-xs px-2 py-1.5 rounded-md border transition ${
                 selected
-                  ? "bg-green-600/20 text-green-300 border-green-600/40"
+                  ? "bg-primary/15 text-primary border-primary/30"
                   : isDisabled
                   ? "bg-card/40 text-muted-foreground/50 border-border/40 line-through cursor-not-allowed opacity-50"
                   : "bg-card text-foreground border-border hover:bg-accent"

@@ -16,7 +16,7 @@ export function CvDownload({ variant = "sidebar" }: { variant?: Variant }) {
 
   const trigger =
     variant === "mobile" ? (
-      <button className="text-xs px-2 py-1 rounded bg-gradient-to-r from-green-600 to-green-700 text-white">
+      <button className="text-xs px-2 py-1 rounded bg-primary text-white">
         CV
       </button>
     ) : variant === "hero" ? (

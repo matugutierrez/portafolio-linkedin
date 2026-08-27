@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Github, Linkedin, Mail, Settings } from "lucide-react";
+import { ArrowUpRight, Github, Linkedin, Mail } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { useProfile, normalizeUrl } from "@/lib/use-profile";
-import { AdminLoginDialog } from "@/components/admin-login-dialog";
 import { CvDownload } from "@/components/cv-download";
 import { Marquee } from "@/components/marquee";
 import { useNavItems } from "@/components/site-header";
@@ -82,13 +81,6 @@ export function SiteFooter() {
 
         <div className="mt-14 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
           <div>© {new Date().getFullYear()} Matías Gutiérrez. {lang === "es" ? "Todos los derechos reservados." : "All rights reserved."}</div>
-          <AdminLoginDialog
-            trigger={
-              <button type="button" aria-label="Admin" className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1.5 hover:bg-accent hover:text-foreground transition">
-                <Settings className="size-3.5" /> Admin
-              </button>
-            }
-          />
         </div>
       </div>
     </footer>

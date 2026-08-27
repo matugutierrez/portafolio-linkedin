@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "@/lib/i18n";
 
@@ -48,15 +47,18 @@ function AuthPage() {
   };
 
   const google = async () => {
-    const res = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (res.error) toast.error(String(res.error));
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: window.location.origin + "/admin" },
+    });
+    if (error) toast.error(error.message);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <div className="w-full max-w-md rounded-3xl border border-border bg-card p-8 shadow-2xl">
         <div className="flex items-center gap-3">
-          <div className="size-10 rounded-xl bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center text-white font-bold">MG</div>
+          <div className="size-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold">MG</div>
           <div>
             <div className="font-semibold">{t.auth.signin}</div>
             <div className="text-xs text-muted-foreground">Matías Gutiérrez</div>
@@ -66,7 +68,7 @@ function AuthPage() {
         <form onSubmit={submit} className="mt-8 space-y-3">
           <input type="email" required placeholder={t.auth.email} value={email} onChange={(e) => setEmail(e.target.value)} className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20" />
           <input type="password" required minLength={6} placeholder={t.auth.password} value={password} onChange={(e) => setPassword(e.target.value)} className="w-full bg-background border border-border rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-white/20" />
-          <Button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white border-0">
+          <Button type="submit" disabled={loading} className="w-full bg-primary text-white border-0">
             {mode === "signin" ? t.auth.signinBtn : t.auth.signup}
           </Button>
         </form>

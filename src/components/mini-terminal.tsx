@@ -67,15 +67,15 @@ export function MiniTerminal() {
       },
     ],
     projects: () => [
-      { kind: "out", html: true, text: `→ <a href="/proyectos" class="text-green-400 underline">/proyectos</a>` },
+      { kind: "out", html: true, text: `→ <a href="/proyectos" class="text-primary underline">/proyectos</a>` },
     ],
     contact: () => [
       {
         kind: "out",
         html: true,
         text:
-          `email   <a href="mailto:${profile?.email ?? "matugutierrez7@gmail.com"}" class="text-green-400 underline">${profile?.email ?? "matugutierrez7@gmail.com"}</a>\n` +
-          `whatsapp <a href="https://wa.me/5491159371225" target="_top" class="text-green-400 underline">+54 9 11 5937-1225</a>`,
+          `email   <a href="mailto:${profile?.email ?? "matugutierrez7@gmail.com"}" class="text-primary underline">${profile?.email ?? "matugutierrez7@gmail.com"}</a>\n` +
+          `whatsapp <a href="https://wa.me/5491159371225" target="_top" class="text-primary underline">+54 9 11 5937-1225</a>`,
       },
     ],
     social: () => [
@@ -83,12 +83,12 @@ export function MiniTerminal() {
         kind: "out",
         html: true,
         text:
-          (profile?.github_url ? `github   <a href="${profile.github_url}" target="_blank" rel="noreferrer" class="text-green-400 underline">${profile.github_url}</a>\n` : "") +
-          (profile?.linkedin_url ? `linkedin <a href="${profile.linkedin_url}" target="_blank" rel="noreferrer" class="text-green-400 underline">${profile.linkedin_url}</a>` : ""),
+          (profile?.github_url ? `github   <a href="${profile.github_url}" target="_blank" rel="noreferrer" class="text-primary underline">${profile.github_url}</a>\n` : "") +
+          (profile?.linkedin_url ? `linkedin <a href="${profile.linkedin_url}" target="_blank" rel="noreferrer" class="text-primary underline">${profile.linkedin_url}</a>` : ""),
       },
     ],
     cv: () => [
-      { kind: "out", html: true, text: `→ <a href="/" class="text-green-400 underline">${es ? "usá el botón 'Descargar CV' arriba" : "use the 'Download CV' button above"}</a>` },
+      { kind: "out", html: true, text: `→ <a href="/" class="text-primary underline">${es ? "usá el botón 'Descargar CV' arriba" : "use the 'Download CV' button above"}</a>` },
     ],
     date: () => [{ kind: "out", text: new Date().toString() }],
     clear: () => {
@@ -128,7 +128,7 @@ export function MiniTerminal() {
     <section className="mt-12">
       <div
         onClick={() => inputRef.current?.focus()}
-        className="rounded-xl border border-green-400/20 bg-black/80 shadow-[0_0_40px_-12px_rgba(16,185,129,0.35)] overflow-hidden"
+        className="rounded-xl border border-primary/20 bg-black/80 shadow-[0_0_40px_-12px_rgba(16,185,129,0.35)] overflow-hidden"
       >
         <div className="flex items-center gap-2 px-4 py-2 border-b border-white/10 bg-white/5">
           <button
@@ -140,17 +140,17 @@ export function MiniTerminal() {
             <svg className="opacity-0 group-hover:opacity-100" width="8" height="8" viewBox="0 0 8 8"><path d="M1.5 1.5l5 5M6.5 1.5l-5 5" stroke="#4a0000" strokeWidth="1.2" strokeLinecap="round"/></svg>
           </button>
           <span className="size-3 rounded-full bg-yellow-500" />
-          <span className="size-3 rounded-full bg-green-500" />
+          <span className="size-3 rounded-full bg-primary" />
           <span className="ml-3 text-xs text-muted-foreground">guest@matu:~</span>
         </div>
         <div ref={scrollRef} className="h-64 sm:h-72 overflow-y-auto p-4 text-[13px] leading-relaxed">
           {lines.map((l, i) => (
-            <div key={i} className={l.kind === "sys" ? "text-muted-foreground" : l.kind === "in" ? "text-green-400" : "text-foreground/90"}>
+            <div key={i} className={l.kind === "sys" ? "text-muted-foreground" : l.kind === "in" ? "text-primary" : "text-foreground/90"}>
               {l.kind === "in" ? (
                 <span>
-                  <span className="text-green-400">guest@matu</span>
+                  <span className="text-primary">guest@matu</span>
                   <span className="text-muted-foreground">:</span>
-                  <span className="text-green-300">~$</span>{" "}
+                  <span className="text-primary">~$</span>{" "}
                   <span className="text-foreground">{l.text}</span>
                 </span>
               ) : l.html ? (
@@ -168,9 +168,9 @@ export function MiniTerminal() {
             }}
             className="flex items-center gap-2 mt-1"
           >
-            <span className="text-green-400">guest@matu</span>
+            <span className="text-primary">guest@matu</span>
             <span className="text-muted-foreground -ml-2">:</span>
-            <span className="text-green-300 -ml-2">~$</span>
+            <span className="text-primary -ml-2">~$</span>
             <input
               ref={inputRef}
               value={input}
@@ -198,7 +198,7 @@ export function MiniTerminal() {
               spellCheck={false}
               autoCapitalize="off"
               autoCorrect="off"
-              className="flex-1 bg-transparent outline-none border-0 text-foreground font-mono caret-green-300"
+              className="flex-1 bg-transparent outline-none border-0 text-foreground font-mono caret-primary"
               placeholder={es ? "escribí 'help' y ENTER" : "type 'help' and ENTER"}
             />
           </form>
@@ -206,7 +206,7 @@ export function MiniTerminal() {
       </div>
       <p className="mt-2 text-xs text-muted-foreground">
         {es ? "Tip: probá 'help', 'about', 'projects', 'contact'." : "Tip: try 'help', 'about', 'projects', 'contact'."}
-        {" "}<Link to="/proyectos" className="text-green-400 hover:underline">/proyectos</Link>
+        {" "}<Link to="/proyectos" className="text-primary hover:underline">/proyectos</Link>
       </p>
     </section>
   );

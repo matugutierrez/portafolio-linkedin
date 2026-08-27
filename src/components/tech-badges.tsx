@@ -12,7 +12,7 @@ function InitialsBadge({ label, size }: { label: string; size: number }) {
   return (
     <span
       title={label}
-      className="inline-flex items-center justify-center rounded-md bg-green-500/10 border border-green-400/30 text-green-300 font-mono font-semibold"
+      className="inline-flex items-center justify-center rounded-md bg-primary/10 border border-primary/30 text-primary font-mono font-semibold"
       style={{ width: size + 12, height: size + 12, fontSize: Math.max(10, size * 0.55) }}
     >
       {initials(label)}

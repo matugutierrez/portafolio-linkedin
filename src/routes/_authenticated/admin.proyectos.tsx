@@ -1,17 +1,32 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useQuery } from "@tanstack/react-query";
 import { AdminLayout } from "@/components/admin-layout";
 import { AdminCrud } from "@/components/admin-crud";
-import { TECHS, techIconUrl } from "@/lib/tech-icons";
-
-const TECH_OPTIONS = TECHS.map((t) => ({ value: t.slug, label: t.label }));
-const techIcon = (slug: string) => {
-  const t = TECHS.find((x) => x.slug === slug);
-  return t ? techIconUrl(t) : null;
-};
+import { TECHS, techIconUrl, resolveTech } from "@/lib/tech-icons";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/_authenticated/admin/proyectos")({ component: Page });
 
 function Page() {
+  const { data: catalog = [] } = useQuery({
+    queryKey: ["tech_catalog"],
+    queryFn: async () => {
+      const { data } = await supabase.from("site_settings").select("value").eq("key", "tech_catalog").maybeSingle();
+      const items = (data?.value as any)?.items;
+      return Array.isArray(items) ? (items as { name: string; icon_url: string | null }[]) : [];
+    },
+  });
+  const catalogOpts = catalog.map((c) => ({ value: c.name, label: c.name }));
+  const techOpts = TECHS.map((t) => ({ value: t.label, label: t.label }));
+  const merged = [...catalogOpts, ...techOpts];
+  const unique = Array.from(new Map(merged.map((o) => [o.value.toLowerCase(), o])).values());
+  const techIcon = (label: string) => {
+    const found = catalog.find((c) => c.name.toLowerCase() === label.toLowerCase());
+    if (found?.icon_url) return found.icon_url;
+    const t = resolveTech(label);
+    if (t) return techIconUrl(t);
+    return `https://cdn.simpleicons.org/${label.toLowerCase().replace(/\s+/g, "")}/000000`;
+  };
   return (
     <AdminLayout title="Proyectos">
       <AdminCrud
@@ -38,7 +53,7 @@ function Page() {
             name: "stack",
             label: "Tecnologías (elegí las que usa este proyecto)",
             type: "multi",
-            options: TECH_OPTIONS,
+            options: unique,
             iconUrl: techIcon,
           },
           { name: "demo_url", label: "URL Demo" },

@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import {
   FolderGit2, Briefcase, GraduationCap, Wrench, Code2, Mail,
-  BarChart3, UserCog, LogOut, ArrowLeft, Menu, Zap,
+  BarChart3, UserCog, LogOut, ArrowLeft, Menu, Zap, Plus,
 } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
@@ -17,6 +17,7 @@ const NAV_ITEMS = [
   { to: "/admin/analiticas", label: "Analíticas",    icon: BarChart3 },
   { to: "/admin/perfil",      label: "Perfil",        icon: UserCog },
   { to: "/admin/menu",        label: "Menú del sitio", icon: Menu },
+  { to: "/admin/tecnologias-nuevas", label: "Tecnologías nuevas", icon: Plus },
 ];
 
 export function AdminLayout({ children, title }: { children: ReactNode; title: string }) {
@@ -26,6 +27,10 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
   const [open, setOpen] = useState(false);
 
   const signOut = async () => {
+    try {
+      const { supabase } = await import("@/integrations/supabase/client");
+      await supabase.auth.signOut();
+    } catch {}
     await qc.cancelQueries();
     qc.clear();
     window.localStorage.removeItem("admin_bypass");
@@ -35,7 +40,7 @@ export function AdminLayout({ children, title }: { children: ReactNode; title: s
   const NavList = ({ onClick }: { onClick?: () => void }) => (
     <nav className="flex-1 space-y-0.5">
       {NAV_ITEMS.map((it) => {
-        const active = loc.pathname.startsWith(it.to);
+        const active = loc.pathname === it.to;
         const Icon = it.icon;
         return (
           <Link

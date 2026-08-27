@@ -20,10 +20,13 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProyectosSlugRouteImport } from './routes/proyectos.$slug'
+import { Route as ApiSkillsSuggestRouteImport } from './routes/api/skills-suggest'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiAdminLoginRouteImport } from './routes/api/admin-login'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as ProyectosSlugReadmeRouteImport } from './routes/proyectos_.$slug.readme'
+import { Route as AuthenticatedAdminTecnologiasNuevasRouteImport } from './routes/_authenticated/admin.tecnologias-nuevas'
 import { Route as AuthenticatedAdminTecnologiasRouteImport } from './routes/_authenticated/admin.tecnologias'
 import { Route as AuthenticatedAdminProyectosRouteImport } from './routes/_authenticated/admin.proyectos'
 import { Route as AuthenticatedAdminPerfilRouteImport } from './routes/_authenticated/admin.perfil'
@@ -88,9 +91,19 @@ const ProyectosSlugRoute = ProyectosSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProyectosRoute,
 } as any)
+const ApiSkillsSuggestRoute = ApiSkillsSuggestRouteImport.update({
+  id: '/api/skills-suggest',
+  path: '/api/skills-suggest',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiAdminLoginRoute = ApiAdminLoginRouteImport.update({
+  id: '/api/admin-login',
+  path: '/api/admin-login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
@@ -108,6 +121,12 @@ const ProyectosSlugReadmeRoute = ProyectosSlugReadmeRouteImport.update({
   path: '/proyectos/$slug/readme',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminTecnologiasNuevasRoute =
+  AuthenticatedAdminTecnologiasNuevasRouteImport.update({
+    id: '/tecnologias-nuevas',
+    path: '/tecnologias-nuevas',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const AuthenticatedAdminTecnologiasRoute =
   AuthenticatedAdminTecnologiasRouteImport.update({
     id: '/tecnologias',
@@ -173,7 +192,9 @@ export interface FileRoutesByFullPath {
   '/sobre-mi': typeof SobreMiRoute
   '/tecnologias': typeof TecnologiasRoute
   '/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/api/admin-login': typeof ApiAdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/skills-suggest': typeof ApiSkillsSuggestRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/admin/analiticas': typeof AuthenticatedAdminAnaliticasRoute
   '/admin/educacion': typeof AuthenticatedAdminEducacionRoute
@@ -184,6 +205,7 @@ export interface FileRoutesByFullPath {
   '/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/admin/tecnologias-nuevas': typeof AuthenticatedAdminTecnologiasNuevasRoute
   '/proyectos/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -197,7 +219,9 @@ export interface FileRoutesByTo {
   '/proyectos': typeof ProyectosRouteWithChildren
   '/sobre-mi': typeof SobreMiRoute
   '/tecnologias': typeof TecnologiasRoute
+  '/api/admin-login': typeof ApiAdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/skills-suggest': typeof ApiSkillsSuggestRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/admin/analiticas': typeof AuthenticatedAdminAnaliticasRoute
   '/admin/educacion': typeof AuthenticatedAdminEducacionRoute
@@ -208,6 +232,7 @@ export interface FileRoutesByTo {
   '/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/admin/tecnologias-nuevas': typeof AuthenticatedAdminTecnologiasNuevasRoute
   '/proyectos/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
 }
@@ -224,7 +249,9 @@ export interface FileRoutesById {
   '/sobre-mi': typeof SobreMiRoute
   '/tecnologias': typeof TecnologiasRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
+  '/api/admin-login': typeof ApiAdminLoginRoute
   '/api/chat': typeof ApiChatRoute
+  '/api/skills-suggest': typeof ApiSkillsSuggestRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
   '/_authenticated/admin/analiticas': typeof AuthenticatedAdminAnaliticasRoute
   '/_authenticated/admin/educacion': typeof AuthenticatedAdminEducacionRoute
@@ -235,6 +262,7 @@ export interface FileRoutesById {
   '/_authenticated/admin/perfil': typeof AuthenticatedAdminPerfilRoute
   '/_authenticated/admin/proyectos': typeof AuthenticatedAdminProyectosRoute
   '/_authenticated/admin/tecnologias': typeof AuthenticatedAdminTecnologiasRoute
+  '/_authenticated/admin/tecnologias-nuevas': typeof AuthenticatedAdminTecnologiasNuevasRoute
   '/proyectos_/$slug/readme': typeof ProyectosSlugReadmeRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
@@ -251,7 +279,9 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/tecnologias'
     | '/admin'
+    | '/api/admin-login'
     | '/api/chat'
+    | '/api/skills-suggest'
     | '/proyectos/$slug'
     | '/admin/analiticas'
     | '/admin/educacion'
@@ -262,6 +292,7 @@ export interface FileRouteTypes {
     | '/admin/perfil'
     | '/admin/proyectos'
     | '/admin/tecnologias'
+    | '/admin/tecnologias-nuevas'
     | '/proyectos/$slug/readme'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -275,7 +306,9 @@ export interface FileRouteTypes {
     | '/proyectos'
     | '/sobre-mi'
     | '/tecnologias'
+    | '/api/admin-login'
     | '/api/chat'
+    | '/api/skills-suggest'
     | '/proyectos/$slug'
     | '/admin/analiticas'
     | '/admin/educacion'
@@ -286,6 +319,7 @@ export interface FileRouteTypes {
     | '/admin/perfil'
     | '/admin/proyectos'
     | '/admin/tecnologias'
+    | '/admin/tecnologias-nuevas'
     | '/proyectos/$slug/readme'
     | '/admin'
   id:
@@ -301,7 +335,9 @@ export interface FileRouteTypes {
     | '/sobre-mi'
     | '/tecnologias'
     | '/_authenticated/admin'
+    | '/api/admin-login'
     | '/api/chat'
+    | '/api/skills-suggest'
     | '/proyectos/$slug'
     | '/_authenticated/admin/analiticas'
     | '/_authenticated/admin/educacion'
@@ -312,6 +348,7 @@ export interface FileRouteTypes {
     | '/_authenticated/admin/perfil'
     | '/_authenticated/admin/proyectos'
     | '/_authenticated/admin/tecnologias'
+    | '/_authenticated/admin/tecnologias-nuevas'
     | '/proyectos_/$slug/readme'
     | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
@@ -327,7 +364,9 @@ export interface RootRouteChildren {
   ProyectosRoute: typeof ProyectosRouteWithChildren
   SobreMiRoute: typeof SobreMiRoute
   TecnologiasRoute: typeof TecnologiasRoute
+  ApiAdminLoginRoute: typeof ApiAdminLoginRoute
   ApiChatRoute: typeof ApiChatRoute
+  ApiSkillsSuggestRoute: typeof ApiSkillsSuggestRoute
   ProyectosSlugReadmeRoute: typeof ProyectosSlugReadmeRoute
 }
 
@@ -410,11 +449,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProyectosSlugRouteImport
       parentRoute: typeof ProyectosRoute
     }
+    '/api/skills-suggest': {
+      id: '/api/skills-suggest'
+      path: '/api/skills-suggest'
+      fullPath: '/api/skills-suggest'
+      preLoaderRoute: typeof ApiSkillsSuggestRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
       fullPath: '/api/chat'
       preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/admin-login': {
+      id: '/api/admin-login'
+      path: '/api/admin-login'
+      fullPath: '/api/admin-login'
+      preLoaderRoute: typeof ApiAdminLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin': {
@@ -437,6 +490,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/proyectos/$slug/readme'
       preLoaderRoute: typeof ProyectosSlugReadmeRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/tecnologias-nuevas': {
+      id: '/_authenticated/admin/tecnologias-nuevas'
+      path: '/tecnologias-nuevas'
+      fullPath: '/admin/tecnologias-nuevas'
+      preLoaderRoute: typeof AuthenticatedAdminTecnologiasNuevasRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
     }
     '/_authenticated/admin/tecnologias': {
       id: '/_authenticated/admin/tecnologias'
@@ -514,6 +574,7 @@ interface AuthenticatedAdminRouteChildren {
   AuthenticatedAdminPerfilRoute: typeof AuthenticatedAdminPerfilRoute
   AuthenticatedAdminProyectosRoute: typeof AuthenticatedAdminProyectosRoute
   AuthenticatedAdminTecnologiasRoute: typeof AuthenticatedAdminTecnologiasRoute
+  AuthenticatedAdminTecnologiasNuevasRoute: typeof AuthenticatedAdminTecnologiasNuevasRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
 }
 
@@ -527,6 +588,8 @@ const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
   AuthenticatedAdminPerfilRoute: AuthenticatedAdminPerfilRoute,
   AuthenticatedAdminProyectosRoute: AuthenticatedAdminProyectosRoute,
   AuthenticatedAdminTecnologiasRoute: AuthenticatedAdminTecnologiasRoute,
+  AuthenticatedAdminTecnologiasNuevasRoute:
+    AuthenticatedAdminTecnologiasNuevasRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
 }
 
@@ -567,7 +630,9 @@ const rootRouteChildren: RootRouteChildren = {
   ProyectosRoute: ProyectosRouteWithChildren,
   SobreMiRoute: SobreMiRoute,
   TecnologiasRoute: TecnologiasRoute,
+  ApiAdminLoginRoute: ApiAdminLoginRoute,
   ApiChatRoute: ApiChatRoute,
+  ApiSkillsSuggestRoute: ApiSkillsSuggestRoute,
   ProyectosSlugReadmeRoute: ProyectosSlugReadmeRoute,
 }
 export const routeTree = rootRouteImport
