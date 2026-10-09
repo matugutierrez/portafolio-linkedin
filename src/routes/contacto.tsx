@@ -61,15 +61,6 @@ function Contacto() {
         </motion.div>
       </div>
 
-      <div className="mt-10 border-y border-border py-3">
-        <Marquee duration={22} repeat={4}>
-          <MarqueeWords
-            words={lang === "es" ? ["Hablemos", "Escribime", "Trabajemos juntos"] : ["Let’s talk", "Write me", "Let’s work together"]}
-            className="font-display font-bold uppercase tracking-tight text-xl sm:text-2xl text-muted-foreground"
-          />
-        </Marquee>
-      </div>
-
       <div className="px-4 sm:px-8 max-w-7xl mx-auto mt-12 grid gap-12 lg:grid-cols-[1.3fr_1fr]">
         <motion.form
           onSubmit={submit}

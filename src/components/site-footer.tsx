@@ -13,18 +13,6 @@ export function SiteFooter() {
 
   return (
     <footer className="mt-24">
-      <Link to="/contacto" className="block group border-y border-border bg-primary text-primary-foreground">
-        <Marquee duration={20} repeat={3} className="py-5 sm:py-7">
-          <span className="inline-flex items-center font-display font-bold uppercase tracking-tight text-3xl sm:text-5xl">
-            <span>{lang === "es" ? "Trabajemos juntos" : "Let’s work together"}</span>
-            <ArrowUpRight className="size-8 sm:size-12 mx-6 transition-transform duration-300 group-hover:rotate-45" />
-            <span className="text-outline" style={{ WebkitTextStroke: "1.5px currentColor" }}>
-              {lang === "es" ? "Trabajemos juntos" : "Let’s work together"}
-            </span>
-            <ArrowUpRight className="size-8 sm:size-12 mx-6 transition-transform duration-300 group-hover:rotate-45" />
-          </span>
-        </Marquee>
-      </Link>
 
       <div className="px-4 sm:px-8 pt-14 pb-28 lg:pb-10 max-w-7xl mx-auto">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr_1fr]">
@@ -35,10 +23,6 @@ export function SiteFooter() {
             <p className="mt-3 text-sm text-muted-foreground max-w-xs">
               Full Stack Developer
             </p>
-            <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-xs text-primary">
-              <span className="size-2 rounded-full bg-primary animate-pulse" />
-              {t.hero.availableNew}
-            </div>
             <div className="mt-6 max-w-[220px]">
               <CvDownload variant="sidebar" />
             </div>
@@ -80,7 +64,6 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 pt-6 border-t border-border flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
-          <div>© {new Date().getFullYear()} Matías Gutiérrez. {lang === "es" ? "Todos los derechos reservados." : "All rights reserved."}</div>
         </div>
       </div>
     </footer>

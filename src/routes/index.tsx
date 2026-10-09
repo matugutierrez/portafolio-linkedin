@@ -323,10 +323,6 @@ function Index() {
 
   const heroCards = ((projects ?? []) as any[]).filter((p) => p.video_url || p.cover_url).slice(0, 3);
 
-  const techWords: string[] =
-    ((profile as any)?.featured_technologies as string[] | undefined)?.length
-      ? ((profile as any).featured_technologies as string[])
-      : ["React", "Node.js", "TypeScript", "PostgreSQL", "Tailwind", "Supabase"];
 
   const name = (profile?.name ?? "Mat\u00edas Guti\u00e9rrez").split(" ");
   const firstName = name[0] ?? "Mat\u00edas";
@@ -497,69 +493,11 @@ function Index() {
           transition={{ delay: 1.2 }}
           className="flex items-center gap-3 pb-6"
         >
-          <div className="h-8 w-px bg-border" />
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Scroll</span>
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 1.4, repeat: Infinity, ease: "easeInOut" }}
-            className="size-1.5 rounded-full bg-primary"
-          />
         </motion.div>
       </section>
 
-      <div className="border-t border-border">
-        <div className="py-4 sm:py-5">
-          <Marquee duration={55} repeat={3}>
-            <MarqueeWords
-              words={techWords}
-              className="font-display font-bold uppercase tracking-tight text-2xl sm:text-4xl text-foreground"
-            />
-          </Marquee>
-        </div>
-        <div className="border-t border-border" />
-        <div className="py-4 sm:py-5">
-          <Marquee duration={68} reverse repeat={3}>
-            <MarqueeWords
-              words={techWords.slice().reverse()}
-              className="font-display font-bold uppercase tracking-tight text-2xl sm:text-4xl text-muted-foreground"
-            />
-          </Marquee>
-        </div>
-      </div>
       <div className="border-b border-border" />
 
-      <section className="mt-20 max-w-7xl mx-auto px-4 sm:px-8">
-        <div className="flex items-baseline gap-4 mb-10">
-          <span className="font-mono text-xs text-primary tracking-widest">01</span>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold uppercase tracking-tight">Stats</h2>
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-border border border-border rounded-2xl overflow-hidden">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease }}
-              className="group relative px-5 sm:px-8 py-8 sm:py-12 flex flex-col gap-1 hover:bg-primary/5 transition-colors duration-500 overflow-hidden"
-            >
-              <div className="font-display font-black text-[clamp(3rem,7vw,6rem)] leading-none tracking-tight text-primary transition-transform duration-500 group-hover:scale-105 origin-bottom-left">
-                {s.value}
-              </div>
-              <div className="my-3 h-px w-8 bg-primary/40 transition-all duration-500 group-hover:w-full" />
-              <div className="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-muted-foreground whitespace-pre-line leading-loose">
-                {s.label}
-              </div>
-              <div
-                className="pointer-events-none absolute -right-2 -bottom-4 font-display font-black text-[8rem] leading-none opacity-[0.04] select-none"
-                aria-hidden
-              >
-                {s.value}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       <section className="mt-24 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
@@ -615,25 +553,6 @@ function Index() {
             transition={{ duration: 0.6, ease }}
             className="hidden lg:flex flex-col gap-6"
           >
-            <div className="rounded-2xl border border-border bg-card p-7">
-              <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">
-                {lang === "es" ? "Sobre m\u00ed" : "About me"}
-              </div>
-              <p className="text-sm leading-relaxed text-foreground/90">
-                {lang === "es" ? profile?.bio_es : profile?.bio_en}
-              </p>
-              <Link
-                to="/sobre-mi"
-                className="mt-5 group inline-flex items-center gap-2 text-sm text-primary hover:text-foreground transition-colors duration-300"
-              >
-                {t.hero.aboutMe}
-                <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
-              </Link>
-            </div>
-            <div className="rounded-2xl border border-border bg-card p-7">
-              <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-4">CV</div>
-              <CvDownload variant="sidebar" />
-            </div>
           </motion.div>
         </div>
       </section>

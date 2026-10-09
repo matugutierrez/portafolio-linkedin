@@ -127,13 +127,6 @@ export function SiteHeader() {
                 className="hidden lg:flex flex-col justify-center gap-8 border-l border-border pl-10"
               >
                 <div>
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Status</div>
-                  <div className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-4 py-2 text-sm text-primary">
-                    <span className="size-2 rounded-full bg-primary animate-pulse" />
-                    {t.hero.availableNew}
-                  </div>
-                </div>
-                <div>
                   <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">Contacto</div>
                   <div className="flex flex-col gap-2 text-sm">
                     {profile?.email && (
@@ -152,10 +145,6 @@ export function SiteHeader() {
                       </a>
                     )}
                   </div>
-                </div>
-                <div>
-                  <div className="font-mono text-xs uppercase tracking-widest text-muted-foreground mb-3">CV</div>
-                  <CvDownload variant="sidebar" />
                 </div>
               </motion.div>
             </div>

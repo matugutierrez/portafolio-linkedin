@@ -36,14 +36,6 @@ function SobreMi() {
         </motion.div>
       </div>
 
-      <div className="mt-12 border-y border-border py-3">
-        <Marquee duration={24} repeat={4}>
-          <MarqueeWords
-            words={lang === "es" ? ["Diseño cuidado", "Código limpio", "Experiencias excepcionales"] : ["Careful design", "Clean code", "Exceptional experiences"]}
-            className="font-display font-bold uppercase tracking-tight text-xl sm:text-2xl text-muted-foreground"
-          />
-        </Marquee>
-      </div>
 
       <div className="px-4 sm:px-8 max-w-7xl mx-auto mt-12 grid gap-10 lg:grid-cols-[1.3fr_1fr]">
         <motion.div
@@ -68,14 +60,6 @@ function SobreMi() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="space-y-4"
         >
-          <div className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/50 transition-colors duration-300">
-            <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest">Email</div>
-            <div className="mt-2 font-display text-lg font-semibold break-all group-hover:text-primary transition-colors">{data?.email ?? "—"}</div>
-          </div>
-          <div className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/50 transition-colors duration-300">
-            <div className="font-mono text-xs text-muted-foreground uppercase tracking-widest">{lang === "es" ? "Ubicación" : "Location"}</div>
-            <div className="mt-2 font-display text-lg font-semibold group-hover:text-primary transition-colors">{data?.location ?? "—"}</div>
-          </div>
         </motion.div>
       </div>
     </SiteLayout>
