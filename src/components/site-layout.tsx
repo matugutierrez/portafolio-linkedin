@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import { SiteHeader } from "./site-header";
 import { SiteFooter } from "./site-footer";
-import { MobileBottomNav } from "./mobile-bottom-nav";
 import { ChatWidget } from "./chat-widget";
 import { AdminLoginDialog } from "./admin-login-dialog";
 
@@ -13,7 +12,6 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         {children}
       </main>
       <SiteFooter />
-      <MobileBottomNav />
       <ChatWidget />
       <AdminLoginDialog />
     </div>
