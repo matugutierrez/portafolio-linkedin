@@ -154,12 +154,6 @@ function Proyectos() {
     queryFn: async () => (await supabase.from("projects").select("*").order("display_order")).data ?? [],
   });
   const filters = [
-    { id: "all", label: t.sections.all },
-    { id: "web", label: t.sections.web },
-    { id: "mobile", label: t.sections.mobile },
-    { id: "ecommerce", label: t.sections.ecommerce },
-    { id: "dashboard", label: t.sections.dashboard },
-    { id: "api", label: t.sections.api },
   ];
   const catLabel = (id: string) => filters.find((f) => f.id === id)?.label ?? id;
   const list = (projects ?? []).filter((p) => filter === "all" || p.category === filter);
@@ -170,26 +164,10 @@ function Proyectos() {
         <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease }}>
           <div className="font-mono text-xs uppercase tracking-widest text-primary">{t.nav.projects}</div>
           <h1 className="mt-3 font-display font-bold uppercase tracking-tight leading-[0.95] text-[clamp(2.5rem,8vw,6.5rem)]">
-            {lang === "es" ? "Mirá mi último trabajo" : "Take a look at my latest work"}
+            {lang === "es" ? "Mirá mis últimos trabajos" : "Take a look at my latest works"}
           </h1>
           <div className="mt-2 font-mono text-sm text-muted-foreground">({list.length})</div>
         </motion.div>
-
-        <div className="mt-8 flex flex-wrap gap-2">
-          {filters.map((f) => (
-            <button
-              key={f.id}
-              onClick={() => setFilter(f.id)}
-              className={`px-4 py-2 rounded-full text-sm font-mono uppercase tracking-wide transition-colors duration-300 ${
-                filter === f.id
-                  ? "bg-primary text-primary-foreground"
-                  : "border border-border text-muted-foreground hover:text-foreground hover:border-foreground/40"
-              }`}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
           {list.map((p, i) => (
