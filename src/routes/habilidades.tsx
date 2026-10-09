@@ -6,7 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/habilidades")({
-  head: () => ({ meta: [{ title: "Habilidades — Matías Gutiérrez" }, { name: "description", content: "Habilidades técnicas." }] }),
+  head: () => ({ meta: [{ title: "Habilidades Matías Gutiérrez" }, { name: "description", content: "Habilidades técnicas." }] }),
   component: Habilidades,
 });
 

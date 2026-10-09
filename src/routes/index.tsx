@@ -21,7 +21,7 @@ import { TechBadges } from "@/components/tech-badges";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Mat\u00edas Guti\u00e9rrez \u2014 Full Stack Developer" },
+      { title: "Matias Guti\u00e9rrez Full Stack Developer" },
       { name: "description", content: "Portfolio de Mat\u00edas Guti\u00e9rrez. Aplicaciones web modernas, escalables y de alto rendimiento." },
     ],
   }),
@@ -391,7 +391,7 @@ function Index() {
           heroMx.set(e.clientX - r.left - r.width / 2);
           heroMy.set(e.clientY - r.top - r.height / 2);
         }}
-        className="relative min-h-[92vh] flex flex-col justify-between px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
+        className="relative sm:min-h-[92vh] flex flex-col justify-start gap-10 sm:gap-0 sm:justify-between px-4 sm:px-8 max-w-7xl mx-auto overflow-hidden"
       >
         <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
           <div
@@ -422,9 +422,9 @@ function Index() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease }}
-          className="flex flex-wrap items-center gap-3 pt-4"
+          className="hidden sm:flex flex-wrap items-center gap-3 pt-4"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs text-primary">
+          <div className="hidden sm:inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs text-primary">
             <span className="size-1.5 rounded-full bg-primary animate-pulse" />
             {t.hero.available}
           </div>
@@ -465,24 +465,29 @@ function Index() {
             <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-xl">
               {lang === "es" ? profile?.bio_es : profile?.bio_en}
             </p>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mb-8 sm:mb-0">
               <Link
                 to="/proyectos"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-6 py-3 text-sm font-medium hover:bg-foreground hover:text-background transition-colors duration-300"
+                className="group inline-flex items-center gap-1 rounded-full bg-primary text-primary-foreground px-2.5 py-0 text-[10px] leading-none sm:px-6 sm:py-3 sm:text-sm font-medium hover:bg-foreground hover:text-background transition-colors duration-300"
               >
                 {t.hero.viewProjects}
-                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
               <Link
                 to="/contacto"
-                className="group inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-accent transition-colors duration-300"
+                className="group hidden sm:inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium hover:bg-accent transition-colors duration-300"
               >
                 {t.nav.contact}
                 <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
               </Link>
-              <div className="sm:hidden">
-                <CvDownload variant="hero" />
-              </div>
+              <a
+                href="https://wa.me/5491159371225?text=Hola%2C%20como%20estas%3F%20quiero%20solicitar%20informacion%20para%20hacer%20una%20pagina"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="inline-flex sm:hidden items-center gap-2 rounded-full border border-border px-2 py-0 text-sm font-medium hover:bg-accent transition-colors duration-300"
+              >
+                <img src="/imagenes/whatsapp.png" alt="WhatsApp" className="size-10 block" />
+              </a>
             </div>
           </motion.div>
         </motion.div>
@@ -491,7 +496,7 @@ function Index() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2 }}
-          className="flex items-center gap-3 pb-6"
+          className="hidden sm:flex items-center gap-3 pb-6"
         >
         </motion.div>
       </section>
@@ -499,7 +504,7 @@ function Index() {
       <div className="border-b border-border" />
 
 
-      <section className="mt-24 max-w-7xl mx-auto px-4 sm:px-8">
+      <section className="mt-10 sm:mt-24 max-w-7xl mx-auto px-4 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
           <div>
             <div className="flex items-baseline gap-4">
@@ -512,13 +517,6 @@ function Index() {
               {t.sections.featuredTitle}
             </h2>
           </div>
-          <Link
-            to="/proyectos"
-            className="group inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors duration-300"
-          >
-            {t.sections.viewAll}
-            <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" />
-          </Link>
         </div>
 
         <div className="space-y-0">

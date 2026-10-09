@@ -8,7 +8,7 @@ import { formatDateRange } from "@/lib/utils-format";
 import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/experiencia")({
-  head: () => ({ meta: [{ title: "Experiencia — Matías Gutiérrez" }, { name: "description", content: "Trayectoria profesional." }] }),
+  head: () => ({ meta: [{ title: "Experiencia Matías Gutiérrez" }, { name: "description", content: "Trayectoria profesional." }] }),
   component: Experiencia,
 });
 

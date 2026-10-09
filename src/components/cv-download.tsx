@@ -16,7 +16,7 @@ export function CvDownload({ variant = "sidebar" }: { variant?: Variant }) {
 
   const trigger =
     variant === "mobile" ? (
-      <button className="text-xs px-2 py-1 rounded bg-primary text-white">
+      <button className="rounded-full border border-border bg-background/90 backdrop-blur px-3 py-2 text-xs font-mono uppercase hover:bg-accent transition">
         CV
       </button>
     ) : variant === "hero" ? (
@@ -33,7 +33,7 @@ export function CvDownload({ variant = "sidebar" }: { variant?: Variant }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-48">
+      <DropdownMenuContent align="end" sideOffset={10} className="w-48">
         <DropdownMenuItem asChild>
           <a href="/cv/Matias_Gutierrez_FullStack_JR_CV.pdf" download="Matias_Gutierrez_FullStack_JR_CV.pdf">
             CV Español

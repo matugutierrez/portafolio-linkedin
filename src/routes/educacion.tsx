@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { formatDateRange } from "@/lib/utils-format";
 
 export const Route = createFileRoute("/educacion")({
-  head: () => ({ meta: [{ title: "Educación — Matías Gutiérrez" }, { name: "description", content: "Formación académica." }] }),
+  head: () => ({ meta: [{ title: "Educación Matías Gutiérrez" }, { name: "description", content: "Formación académica." }] }),
   component: Educacion,
 });
 

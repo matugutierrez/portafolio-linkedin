@@ -80,10 +80,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Matías Gutiérrez — Full Stack Developer" },
+      { title: "Matías Gutiérrez Full Stack Developer" },
       { name: "description", content: "Portfolio de Matías Gutiérrez, desarrollador full stack especializado en aplicaciones web modernas, escalables y de alto rendimiento." },
       { name: "author", content: "Matías Gutiérrez" },
-      { property: "og:title", content: "Matías Gutiérrez — Full Stack Developer" },
+      { property: "og:title", content: "Matías Gutiérrez Full Stack Developer" },
       { property: "og:description", content: "Portfolio del desarrollador full stack Matías Gutiérrez." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

@@ -20,7 +20,7 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export const Route = createFileRoute("/proyectos")({
   head: () => ({
     meta: [
-      { title: "Proyectos — Matías Gutiérrez" },
+      { title: "Proyectos  Matías Gutiérrez" },
       { name: "description", content: "Portfolio de proyectos full stack." },
     ],
   }),

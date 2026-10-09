@@ -11,7 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useProfile, normalizeUrl } from "@/lib/use-profile";
 
 export const Route = createFileRoute("/contacto")({
-  head: () => ({ meta: [{ title: "Contacto — Matías Gutiérrez" }, { name: "description", content: "Escríbeme para colaborar." }] }),
+  head: () => ({ meta: [{ title: "Contacto Matías Gutiérrez" }, { name: "description", content: "Escríbeme para colaborar." }] }),
   component: Contacto,
 });
 

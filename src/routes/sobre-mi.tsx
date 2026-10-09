@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/sobre-mi")({
   head: () => ({
     meta: [
-      { title: "Sobre mí — Matías Gutiérrez" },
+      { title: "Sobre mí Matías Gutiérrez" },
       { name: "description", content: "Conoce a Matías Gutiérrez, desarrollador full stack." },
     ],
   }),

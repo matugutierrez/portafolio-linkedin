@@ -67,6 +67,9 @@ export function SiteHeader() {
               <span className="mx-1 text-muted-foreground">/</span>
               <span className={lang === "en" ? "text-foreground" : "text-muted-foreground"}>en</span>
             </button>
+            <div className="sm:hidden">
+              <CvDownload variant="mobile" />
+            </div>
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -95,7 +98,7 @@ export function SiteHeader() {
             transition={{ duration: 0.55, ease: [0.76, 0, 0.24, 1] }}
             className="fixed inset-0 z-[65] bg-background flex flex-col"
           >
-            <div className="flex-1 overflow-y-auto pt-24 pb-8 px-4 sm:px-8 grid lg:grid-cols-[1fr_minmax(260px,360px)] gap-10">
+            <div className="flex-1 overflow-y-auto pt-28 sm:pt-24 pb-8 px-4 sm:px-8 grid lg:grid-cols-[1fr_minmax(260px,360px)] gap-10">
               <nav className="flex flex-col justify-center">
                 {items.map((it, i) => {
                   const active = loc.pathname === it.to || (it.to !== "/" && loc.pathname.startsWith(it.to));

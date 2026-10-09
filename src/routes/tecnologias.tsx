@@ -9,7 +9,7 @@ import { inferTechCategory } from "@/lib/tech-icons";
 import { useState } from "react";
 
 export const Route = createFileRoute("/tecnologias")({
-  head: () => ({ meta: [{ title: "Tecnologías — Matías Gutiérrez" }, { name: "description", content: "Tecnologías dominadas." }] }),
+  head: () => ({ meta: [{ title: "Tecnologías Matías Gutiérrez" }, { name: "description", content: "Tecnologías dominadas." }] }),
   component: Tecnologias,
 });
 
