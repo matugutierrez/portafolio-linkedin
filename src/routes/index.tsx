@@ -486,7 +486,7 @@ function Index() {
                 aria-label="WhatsApp"
                 className="inline-flex sm:hidden items-center gap-2 rounded-full border border-border px-2 py-0 text-sm font-medium hover:bg-accent transition-colors duration-300"
               >
-                <img src="whatsapp.png" alt="WhatsApp" className="size-10 block" />
+                <img src="public/whatsapp.png" alt="WhatsApp" className="size-10 block" />
               </a>
             </div>
           </motion.div>
